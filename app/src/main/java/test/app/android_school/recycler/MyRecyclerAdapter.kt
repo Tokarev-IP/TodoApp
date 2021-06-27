@@ -7,6 +7,8 @@ import test.app.android_school.R
 
 class MyRecyclerAdapter: RecyclerView.Adapter<MyViewHolder>() {
 
+    private var taskList = mutableListOf<DtClass>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater
                 .from(parent.context)
@@ -15,10 +17,15 @@ class MyRecyclerAdapter: RecyclerView.Adapter<MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.textView.text = "a"
+        holder.textView.text = taskList[position].task
     }
 
     override fun getItemCount(): Int {
-        return 20
+        return taskList.size
+    }
+
+    fun updateAdapter(mtaskList: MutableList<DtClass>) {
+        taskList = mtaskList
+        notifyDataSetChanged()
     }
 }

@@ -14,6 +14,7 @@
         <item name="colorButtonNormal">@color/back_primary</item>
 
         <item name="android:textColorTertiary">@color/tertiary</item>
+        <item name="android:enabled">@color/blue</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendareFragment"
+    android:orientation="vertical"
+    android:background="@color/back_primary"
+    >
+
+    <CalendarView
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendare_view"
+        android:background="@drawable/round_edge"
+        >
+    </CalendarView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel_calendare_button"
+        android:text="ОТМЕНА"
+        android:textColor="@color/blue"
+        android:layout_below="@id/calendare_view"
+        android:layout_toLeftOf="@id/ok_calendare_button"
+        android:fadingEdge="none"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ok_calendare_button"
+        android:text="ГОТОВО"
+        android:textColor="@color/blue"
+        android:layout_below="@id/calendare_view"
+        android:layout_alignParentEnd="true"
+        android:fadingEdge="none"
+        />
+
+</RelativeLayout>
