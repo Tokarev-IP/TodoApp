@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Android_school</string>
+
+    <string-array name="priority">
+        <item>Нет</item>
+        <item>Низкий</item>
+        <item>Высокий</item>
+    </string-array>
+
 </resources>

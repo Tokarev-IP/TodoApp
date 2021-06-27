@@ -3,10 +3,9 @@
     <style name="Theme.Android_school" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
 
-        <item name="overlay">@color/separator</item>
-
-        <item name="colorOnPrimary">@color/primary</item>
         <item name="colorPrimary">@color/back_primary</item>
+        <item name="colorOnPrimary">@color/back_primary</item>
+        <item name="colorPrimaryVariant">@color/back_primary</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary</item>
@@ -17,5 +16,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
     </style>
 </resources>
