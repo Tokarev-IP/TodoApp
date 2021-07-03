@@ -5,24 +5,22 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import test.app.android_school.recycler.DtClass
+import test.app.android_school.addTaskActivity.AddTaskActivity
 import test.app.android_school.recycler.MyRecyclerAdapter
+import test.app.android_school.recycler.TaskData
 
 class MainActivity : AppCompatActivity() {
 
     private val CODE = 1
-    private val taskList = mutableListOf<DtClass>()
-    private val TAG = "TAG"
-    private val TAAG = "TAAG"
-    private val TAAAG = "TAAAG"
-    private val TAAAAG = "TAAAAG"
-
-    val myAdapter = MyRecyclerAdapter()
+    private val mAdapter = MyRecyclerAdapter()
+    private val mViewModel = MyViewModel()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         val mRecyclerView = findViewById<RecyclerView>(R.id.recycler)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mRecyclerView.adapter = MyRecyclerAdapter()
+        mRecyclerView.adapter = mAdapter
 
         val floatingButton: FloatingActionButton = findViewById(R.id.floating_button)
 
@@ -42,21 +40,11 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intentActivityResult, CODE)
         }
 
-    }
+        mViewModel.getListOfTasks().observe(this, Observer {
+            mAdapter.updateAdapter(it)
+            Log.d("TAG", "observer")
+        })
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CODE) {
-            if(resultCode == Activity.RESULT_OK){
-                if (data != null) {
-                    taskList.add(DtClass(data.getStringExtra(TAG),
-                        data.getStringExtra(TAAG),
-                    false,
-                    data.getStringExtra(TAAAAG)))
-                }
-            }
-            myAdapter.updateAdapter(taskList)
-        }
     }
 
 }

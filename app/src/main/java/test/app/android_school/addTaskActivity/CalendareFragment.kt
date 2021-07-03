@@ -1,4 +1,4 @@
-package test.app.android_school
+package test.app.android_school.addTaskActivity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,17 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
-import androidx.appcompat.app.ActionBar
-import androidx.fragment.app.FragmentManager
-import com.google.android.material.navigation.NavigationView
-import java.text.DateFormat
+import test.app.android_school.R
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 
 class CalendareFragment : Fragment() {
 
     private val KEY = "KEY"
+
+    private val addTaskAct = AddTaskActivity()
 
     companion object {
         fun newInstance(): CalendareFragment {
@@ -27,7 +25,7 @@ class CalendareFragment : Fragment() {
         }
     }
 
-    lateinit var stringData: String
+    lateinit var stringData: Date
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -38,21 +36,28 @@ class CalendareFragment : Fragment() {
 
         val mInflater = inflater.inflate(R.layout.fragment_calendare, container, false)
 
-        stringData = SimpleDateFormat("dd-MM-yyyy").format(Date())
+//        stringData = SimpleDateFormat("dd-MM-yyyy").format(Date())
+//        stringData = Date()
 
         val calendare: CalendarView = mInflater.findViewById(R.id.calendare_view)
 
+
+
         calendare.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            stringData = dayOfMonth.toString()+"-" + month.toString()+"-" + year.toString()
+//            stringData = dayOfMonth.toString()+"-" + month.toString()+"-" + year.toString()
         }
 
         val okButton: Button = mInflater.findViewById(R.id.ok_calendare_button)
         okButton.setOnClickListener {
+
+            addTaskAct.setDate(Date(calendare.date))
+
             val activityTextView = activity?.findViewById<TextView>(R.id.data_done)
             if (activityTextView != null) {
-                activityTextView.text = stringData
+                activityTextView.text = SimpleDateFormat("dd-MM-yyyy").format(calendare.date)
             }
-                activity
+
+            activity
                     ?.supportFragmentManager
                     ?.beginTransaction()
                     ?.remove(this)

@@ -1,9 +1,11 @@
 package test.app.android_school.recycler
 
-class DtClass(
-        val date: String,
+import java.util.*
+
+data class TaskData(
+        val date: Date?,
         val task: String,
         val isComplete: Boolean,
-        val priority: String,
+        val priority: Int,
 ) {
 }

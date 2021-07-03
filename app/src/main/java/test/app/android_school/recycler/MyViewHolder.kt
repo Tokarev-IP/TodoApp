@@ -12,4 +12,5 @@ class MyViewHolder(v: View): RecyclerView.ViewHolder(v) {
 //    val checkBox: CheckBox = v.findViewById(R.id.)
     val textView: TextView = v.findViewById(R.id.text_view)
     val info : ImageButton = v.findViewById(R.id.info_button)
+    val dataTextView: TextView = v.findViewById(R.id.data_text_view)
 }
