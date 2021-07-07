@@ -9,17 +9,18 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import test.app.android_school.MyViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import test.app.android_school.R
 import test.app.android_school.recycler.TaskData
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
-class AddTaskActivity: AppCompatActivity() {
+class AddTaskActivity(): AppCompatActivity() {
 
     private var taskDate: Date? = null
-    private val myViewModel = MyViewModel()
+    lateinit var taskUpdateDate: Date
+    lateinit var taskCreateDate: Date
+//    private val myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.M)
@@ -51,19 +52,18 @@ class AddTaskActivity: AppCompatActivity() {
         }
 
         okButton.setOnClickListener {
-            myViewModel.updateListOfTasks(TaskData(
-                    taskDate,
-                    mEditText.text.toString(),
-                    false,
-                    mSpinner.selectedItemPosition,
-            ), arrayListOf(TaskData(
-                    taskDate,
-                    mEditText.text.toString(),
-                    false,
-                    mSpinner.selectedItemPosition,
-            ))
-            )
-            finish()
+//            myViewModel.updateListOfTasks(
+//                    TaskData(
+//                        mEditText.text.toString() ?: "",
+//                        mSpinner.selectedItemPosition.toString() ?: "",
+//                        false,
+//                        Date(),
+//                        Date(),
+//                        Date()
+//                    )
+//            )
+//            setResult(Activity.RESULT_OK, mIntent)
+//            finish()
         }
 
         cancelButton.setOnClickListener {
@@ -76,6 +76,8 @@ class AddTaskActivity: AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     fun setDate(mTaskDate: Date){
         taskDate = mTaskDate
+        taskCreateDate = Date()
+        taskUpdateDate = Date()
     }
 
 }

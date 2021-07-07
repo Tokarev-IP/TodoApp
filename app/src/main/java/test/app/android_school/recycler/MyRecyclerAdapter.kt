@@ -3,10 +3,12 @@ package test.app.android_school.recycler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+
 import androidx.recyclerview.widget.RecyclerView
 import test.app.android_school.R
 
-class MyRecyclerAdapter: RecyclerView.Adapter<MyViewHolder>() {
+class MyRecyclerAdapter: ListAdapter<TaskData, MyViewHolder>(MyDiffUtil()) {
 
     private var taskList: ArrayList<TaskData> = ArrayList()
 
@@ -18,17 +20,11 @@ class MyRecyclerAdapter: RecyclerView.Adapter<MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.textView.text = taskList[position].task
-        holder.dataTextView.text = "asc"
-    }
-
-    override fun getItemCount(): Int {
-        Log.d("TAG", taskList.size.toString())
-        return taskList.size
+        holder.textView.text = getItem(position).text
+        holder.dataTextView.text = getItem(position).done.toString()
     }
 
     fun updateAdapter(mTaskList: ArrayList<TaskData>) {
         taskList = mTaskList
-        notifyDataSetChanged()
     }
 }
