@@ -1,34 +1,21 @@
 package test.app.android_school.addTaskActivity
 
-import kotlinx.coroutines.*
-import test.app.android_school.recycler.TaskData
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.room.DataBaseTask
+import test.app.android_school.room.EntityTaskData
 
-class MyRepository() {
+class MyRepository(appCompatActivity: AppCompatActivity) {
 
-    private val taskDb = DataBaseTask.getDatabase(AddTaskActivity()).taskDao()
-    private val mJob = Job()
+    private val db = DataBaseTask.getDatabase(appCompatActivity.applicationContext).taskDao()
 
-    suspend fun insertTask1(mTask: TaskData) {
-        coroutineScope {
-            launch(Dispatchers.IO) {
-                taskDb.insertTask(mTask)
-            }
-        }
+    suspend fun insertTask(mTask: EntityTaskData) {
+        db.insertTask(mTask)
+        Log.d("TAG", "Insert")
     }
 
-    suspend fun insertTask(mTask: TaskData) {
-            taskDb.insertTask(mTask)
-    }
-
-
-    suspend fun getDataAfterInsert(): List<TaskData> =
-            taskDb.getAllTasks()
-
-
-    fun takeTasks() {
-        CoroutineScope(mJob).launch(Dispatchers.IO) {
-            taskDb.getAllTasks()
-        }
+    suspend fun getAllTasks(): List<EntityTaskData> {
+        Log.d("TAG", "Get all")
+       return db.getAllTasks()
     }
 }

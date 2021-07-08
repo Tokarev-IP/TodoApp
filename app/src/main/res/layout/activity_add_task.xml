@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addTaskActivity.AddTaskActivity"
+    tools:context=".AddTaskFragment"
     android:orientation="vertical"
     android:background="@color/back_primary"
     android:paddingHorizontal="20dp"
     android:paddingTop="25dp"
-    android:layout_marginBottom="50dp"
     >
 
         <ImageButton

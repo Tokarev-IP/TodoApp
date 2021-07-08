@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
     android:id="@+id/parent_layout"
     android:background="@color/back_primary"
@@ -12,77 +11,10 @@
     android:paddingHorizontal="10dp"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main.appbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            app:layout_scrollFlags="scroll|snap"
-            />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp"
-            android:paddingHorizontal="15dp"
-            android:background="@color/back_primary"
-            android:layout_marginBottom="10dp"
-            app:layout_scrollFlags="enterAlways"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Мои дела"
-                android:textSize="30sp"
-                android:textColor="@color/primary"
-                android:layout_alignParentStart="true"
-                android:id="@+id/my_task_text"
-                />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_baseline_visibility_25"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/my_task_text"
-                android:text="Выполнено - "
-                android:textColor="@color/disable"
-                />
-
-        </RelativeLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_edge"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_frame"
         />
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/floating_button"
-        android:layout_gravity="end|bottom"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_baseline_add_24"
-        app:backgroundTint="@color/blue"
-        />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

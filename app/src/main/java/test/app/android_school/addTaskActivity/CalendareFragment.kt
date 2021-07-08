@@ -11,21 +11,14 @@ import android.widget.CalendarView
 import android.widget.TextView
 import test.app.android_school.R
 import java.text.SimpleDateFormat
-import java.util.*
 
 class CalendareFragment : Fragment() {
-
-    private val KEY = "KEY"
-
-    private val addTaskAct = AddTaskActivity()
 
     companion object {
         fun newInstance(): CalendareFragment {
             return CalendareFragment()
         }
     }
-
-    lateinit var stringData: Date
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -36,21 +29,10 @@ class CalendareFragment : Fragment() {
 
         val mInflater = inflater.inflate(R.layout.fragment_calendare, container, false)
 
-//        stringData = SimpleDateFormat("dd-MM-yyyy").format(Date())
-//        stringData = Date()
-
         val calendare: CalendarView = mInflater.findViewById(R.id.calendare_view)
-
-
-
-        calendare.setOnDateChangeListener { view, year, month, dayOfMonth ->
-//            stringData = dayOfMonth.toString()+"-" + month.toString()+"-" + year.toString()
-        }
 
         val okButton: Button = mInflater.findViewById(R.id.ok_calendare_button)
         okButton.setOnClickListener {
-
-            addTaskAct.setDate(Date(calendare.date))
 
             val activityTextView = activity?.findViewById<TextView>(R.id.data_done)
             if (activityTextView != null) {
@@ -72,7 +54,6 @@ class CalendareFragment : Fragment() {
                 ?.remove(this)
                 ?.commit()
         }
-
         return mInflater
     }
 }
