@@ -1,4 +1,4 @@
-package test.app.android_school.addTaskActivity
+package test.app.android_school.addTaskFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package test.app.android_school.addTaskActivity
+package test.app.android_school.mvvm
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -18,4 +18,13 @@ class MyRepository(appCompatActivity: AppCompatActivity) {
         Log.d("TAG", "Get all")
        return db.getAllTasks()
     }
+
+    suspend fun makeDone(mTask: EntityTaskData){
+        db.makeTaskIsDone(mTask)
+    }
+
+    suspend fun deleteTask(mTask: EntityTaskData){
+        db.deleteTask(mTask)
+    }
+
 }

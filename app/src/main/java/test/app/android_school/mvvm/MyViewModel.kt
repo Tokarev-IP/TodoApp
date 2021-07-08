@@ -1,4 +1,4 @@
-package test.app.android_school.addTaskActivity
+package test.app.android_school.mvvm
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +31,28 @@ class MyViewModel() : ViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
 
             mutListOfTasks.value = mRepository.getAllTasks()
+
+            Log.d("TAG", mutListOfTasks.toString())
+        }
+    }
+
+    fun makeIsDone(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
+        val mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch(Dispatchers.Main) {
+
+            mRepository.makeDone(mTask)
+            mutListOfTasks.postValue(mRepository.getAllTasks())
+
+            Log.d("TAG", mutListOfTasks.toString())
+        }
+    }
+
+    fun deleteTask(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
+        val mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch(Dispatchers.Main) {
+
+            mRepository.deleteTask(mTask)
+            mutListOfTasks.postValue(mRepository.getAllTasks())
 
             Log.d("TAG", mutListOfTasks.toString())
         }

@@ -1,7 +1,9 @@
-package test.app.android_school
+package test.app.android_school.mvvm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import test.app.android_school.R
+import test.app.android_school.recycler.RecyclerFragment
 
 class MainActivity : AppCompatActivity() {
 

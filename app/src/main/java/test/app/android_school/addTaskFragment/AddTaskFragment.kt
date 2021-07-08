@@ -1,4 +1,4 @@
-package test.app.android_school
+package test.app.android_school.addTaskFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import test.app.android_school.addTaskActivity.CalendareFragment
-import test.app.android_school.addTaskActivity.MyViewModel
+import test.app.android_school.R
+import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.room.EntityTaskData
 import java.util.*
 

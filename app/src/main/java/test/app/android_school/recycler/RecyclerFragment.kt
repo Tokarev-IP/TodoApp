@@ -1,4 +1,4 @@
-package test.app.android_school
+package test.app.android_school.recycler
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import test.app.android_school.addTaskActivity.MyViewModel
-import test.app.android_school.recycler.MyRecyclerAdapter
-import test.app.android_school.room.DataBaseTask
+import test.app.android_school.R
+import test.app.android_school.mvvm.MyViewModel
+import test.app.android_school.addTaskFragment.AddTaskFragment
 
 class RecyclerFragment : Fragment() {
 
@@ -31,16 +31,14 @@ class RecyclerFragment : Fragment() {
 
         val mInflater = inflater.inflate(R.layout.fragment_recycler, container, false)
 
-        val mAdapter = MyRecyclerAdapter()
+        val myViewModel: MyViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+
+        val mAdapter = MyRecyclerAdapter(context as AppCompatActivity, myViewModel)
         val mRecyclerView = mInflater.findViewById<RecyclerView>(R.id.recycler)
         mRecyclerView.layoutManager = LinearLayoutManager(context as AppCompatActivity)
         mRecyclerView.adapter = mAdapter
 
         val floatingButton: FloatingActionButton = mInflater.findViewById(R.id.floating_button)
-
-        val myViewModel: MyViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
-
-        val dbDao = DataBaseTask.getDatabase(context as AppCompatActivity).taskDao()
 
         myViewModel.getAllTaskData(context as AppCompatActivity)
 
@@ -48,6 +46,7 @@ class RecyclerFragment : Fragment() {
             (context as AppCompatActivity).supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_frame, AddTaskFragment(myViewModel))
+                .addToBackStack("add_fragment")
                 .commit()
         }
 

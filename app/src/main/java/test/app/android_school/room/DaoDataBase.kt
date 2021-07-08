@@ -1,9 +1,6 @@
 package test.app.android_school.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface DaoDataBase {
@@ -16,6 +13,9 @@ interface DaoDataBase {
 
     @Update
     suspend fun makeTaskIsDone(mTask: EntityTaskData)
+
+    @Delete
+    suspend fun deleteTask(mTask: EntityTaskData)
 
     @Insert
     suspend fun insertTask(mTask: EntityTaskData)
