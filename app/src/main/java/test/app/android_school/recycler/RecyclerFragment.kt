@@ -53,6 +53,7 @@ class RecyclerFragment : Fragment() {
         myViewModel.getListOfTasks().observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
             Log.d("TAG", "List submitted")
+            Log.d("TAG", it.toString())
         })
 
         return mInflater

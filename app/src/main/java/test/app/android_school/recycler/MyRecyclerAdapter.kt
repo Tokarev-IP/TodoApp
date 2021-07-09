@@ -34,6 +34,7 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                     getItem(position).updatedAt,
                 ), appCompatActivity
             )
+
         }
 
         holder.taskDelete.setOnClickListener {

@@ -29,8 +29,6 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
         val mInflater = inflater.inflate(R.layout.fragment_add_task, container, false)
 
-//        val myViewModel: MyViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
-
         val dataText: TextView = mInflater.findViewById(R.id.data_done)
         val okButton: Button = mInflater.findViewById(R.id.ok_button)
         val cancelButton: ImageButton = mInflater.findViewById(R.id.cancel_image_button)
@@ -52,9 +50,12 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
         okButton.setOnClickListener {
             if (mEditText.text.toString() == "")
-                Toast.makeText(context as AppCompatActivity, "Введите задачу", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                        context as AppCompatActivity,
+                        "Введите задачу",
+                        Toast.LENGTH_LONG)
+                        .show()
             else {
-
                 myViewModel.updateListOfTasks(
                     EntityTaskData(
                         UUID.randomUUID().toString(),
