@@ -43,19 +43,19 @@
         android:background="@color/white"
         >
 
-        <CheckBox
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkbox"
+            android:id="@+id/check_image"
             />
 
         <TextView
             android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/checkbox"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/check_image"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="20dp"
             android:maxLines="3"
             android:textColor="@color/primary"
             />
@@ -64,7 +64,7 @@
             android:id="@+id/data_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/checkbox"
+            android:layout_toEndOf="@id/check_image"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:layout_below="@id/text_view"

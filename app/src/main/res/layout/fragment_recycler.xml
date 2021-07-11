@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="20dp"
-            android:paddingHorizontal="15dp"
+            android:paddingStart="55dp"
+            android:paddingEnd="15dp"
             android:background="@color/back_primary"
             android:layout_marginBottom="10dp"
             app:layout_scrollFlags="enterAlways"
@@ -50,15 +51,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_baseline_visibility_25"
+                android:id="@+id/complete_tasks_visible"
+                android:layout_above="@id/complete_text_view"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/my_task_text"
-                android:text="Выполнено - "
                 android:textColor="@color/disable"
+                android:id="@+id/complete_text_view"
                 />
 
         </RelativeLayout>

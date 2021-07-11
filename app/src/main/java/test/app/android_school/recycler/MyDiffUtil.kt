@@ -7,11 +7,10 @@ class MyDiffUtil: DiffUtil.ItemCallback<EntityTaskData>() {
 
     override fun areItemsTheSame(oldItem: EntityTaskData, newItem: EntityTaskData): Boolean {
         return oldItem.id == newItem.id &&
-                oldItem.done == newItem.done &&
-                oldItem.text == newItem.text
+                oldItem.done == newItem.done
     }
 
     override fun areContentsTheSame(oldItem: EntityTaskData, newItem: EntityTaskData): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 }
