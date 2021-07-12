@@ -35,8 +35,8 @@ class MyViewModel() : ViewModel() {
 //        }
         try {
 
-            viewModelScope.launch() {
-                Log.d("TAG",
+            viewModelScope.launch(Dispatchers.Default) {
+                Log.d("GET",
                         apiRep.getTasksApi()
                                 .toString()
                 )

@@ -79,7 +79,7 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
                         TaskData(
                                 UUID.randomUUID().toString(),
                                 mEditText.text.toString(),
-                                priority,
+                                "low",
                                 false,
                                 500,
                                 500,
