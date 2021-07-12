@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
+import test.app.android_school.recycler.TaskData
 import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,6 +18,7 @@ import java.util.*
 class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
     private val LONG = "long"
+    lateinit var priority: String
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
@@ -49,6 +51,13 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
         }
 
         okButton.setOnClickListener {
+
+            when (mSpinner.selectedItemPosition){
+                0 -> priority = "low"
+                1 -> priority = "basic"
+                2 -> priority = "important"
+            }
+
             if (mEditText.text.toString() == "")
                 Toast.makeText(
                         context as AppCompatActivity,
@@ -58,15 +67,25 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
             else {
                 myViewModel.updateListOfTasks(
-                    EntityTaskData(
-                        UUID.randomUUID().toString(),
-                        mEditText.text.toString(),
-                        mSpinner.selectedItemPosition.toString(),
-                        false,
-                        System.currentTimeMillis(),
-                        System.currentTimeMillis(),
-                        System.currentTimeMillis()
-                    ), context as AppCompatActivity)
+                        EntityTaskData(
+                                UUID.randomUUID().toString(),
+                                mEditText.text.toString(),
+                                priority,
+                                false,
+                                System.currentTimeMillis()/1000,
+                                System.currentTimeMillis()/1000,
+                                System.currentTimeMillis()/1000
+                        ),
+                        TaskData(
+                                UUID.randomUUID().toString(),
+                                mEditText.text.toString(),
+                                priority,
+                                false,
+                                500,
+                                500,
+                                500
+                                ),
+                        context as AppCompatActivity)
 
                 (context as AppCompatActivity).supportFragmentManager
                     .beginTransaction()

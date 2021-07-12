@@ -1,12 +1,14 @@
 package test.app.android_school.retrofit
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import test.app.android_school.room.EntityTaskData
+import test.app.android_school.recycler.TaskData
 
-class ApiRepository {
+class ApiRepository() {
 
-    suspend fun postTaskApi(mTask: EntityTaskData){
-            Api.apiClient.postTaskToApi(mTask)
+    suspend fun getTasksApi(){
+        Api.apiClient.getTasksFromApi("Bearer 39828f964ef548b9beb47356380ff358")
+    }
+
+    suspend fun postTaskApi(auth: String, mTask: TaskData){
+        Api.apiClient.postTaskToApi(auth, mTask)
     }
 }

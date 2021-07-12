@@ -2,7 +2,6 @@ package test.app.android_school.addTaskFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
+import test.app.android_school.recycler.TaskData
 import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -54,31 +54,40 @@ class ReWriteTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
             }
         }
 
-        okButton.setOnClickListener {
-            if (mEditText.text.toString() == "")
-                Toast.makeText(
-                        context as AppCompatActivity,
-                        "Введите задачу",
-                        Toast.LENGTH_LONG)
-                        .show()
-            else {
-                myViewModel.updateListOfTasks(
-                        EntityTaskData(
-                                UUID.randomUUID().toString(),
-                                mEditText.text.toString(),
-                                mSpinner.selectedItemPosition.toString(),
-                                false,
-                                System.currentTimeMillis(),
-                                System.currentTimeMillis(),
-                                System.currentTimeMillis()
-                        ), context as AppCompatActivity)
-
-                (context as AppCompatActivity).supportFragmentManager
-                        .beginTransaction()
-                        .remove(this)
-                        .commit()
-            }
-        }
+//        okButton.setOnClickListener {
+//            if (mEditText.text.toString() == "")
+//                Toast.makeText(
+//                        context as AppCompatActivity,
+//                        "Введите задачу",
+//                        Toast.LENGTH_LONG)
+//                        .show()
+//            else {
+//                myViewModel.updateListOfTasks(
+//                        EntityTaskData(
+//                                UUID.randomUUID().toString(),
+//                                mEditText.text.toString(),
+//                                mSpinner.selectedItemPosition.toString(),
+//                                false,
+//                                System.currentTimeMillis(),
+//                                System.currentTimeMillis(),
+//                                System.currentTimeMillis()
+//                        ),
+//                        TaskData(
+//                                UUID.randomUUID().toString(),
+//                                mEditText.text.toString(),
+//                                priority,
+//                                false,
+//                                System.currentTimeMillis()/1000,
+//                                System.currentTimeMillis()/1000,
+//                                System.currentTimeMillis()/1000
+//                ), context as AppCompatActivity)
+//
+//                (context as AppCompatActivity).supportFragmentManager
+//                        .beginTransaction()
+//                        .remove(this)
+//                        .commit()
+//            }
+//        }
 
         cancelButton.setOnClickListener {
             (context as AppCompatActivity).supportFragmentManager

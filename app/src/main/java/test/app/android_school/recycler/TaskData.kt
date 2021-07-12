@@ -1,12 +1,28 @@
 package test.app.android_school.recycler
 
+import com.google.gson.annotations.SerializedName
+
 data class TaskData(
-        val id: String,
-        val text: String,
-        val importance: String,
-        val done: Boolean,
-        val deadline: Long?,
-        val created_at: Long,
-        val updated_at: Long,
+
+        @SerializedName ("id")
+        var id: String,
+
+        @SerializedName ("text")
+        var text: String,
+
+        @SerializedName ("importance")
+        var importance: String,
+
+        @SerializedName ("done")
+        var done: Boolean,
+
+        @SerializedName ("deadline")
+        var deadline: Int,
+
+        @SerializedName ("created_at")
+        var created_at: Int,
+
+        @SerializedName ("updated_at")
+        var updated_at: Int,
 ) {
 }
