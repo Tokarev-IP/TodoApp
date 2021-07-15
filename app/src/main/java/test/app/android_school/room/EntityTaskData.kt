@@ -22,12 +22,12 @@ data class EntityTaskData(
     val done: Boolean,
 
     @ColumnInfo (name = "deadline")
-    val deadline: Long?,
+    val deadline: Int,
 
     @ColumnInfo (name = "created_at")
-    val createdAt: Long,
+    val createdAt: Int,
 
     @ColumnInfo (name = "updated_at")
-    val updatedAt: Long,
+    val updatedAt: Int,
     ) {
 }

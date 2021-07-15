@@ -12,7 +12,7 @@ class MyRepository(appCompatActivity: AppCompatActivity) {
         db.insertTask(mTask)
     }
 
-    suspend fun getAllTasks(): List<EntityTaskData> {
+    suspend fun getAllTasksRep(): List<EntityTaskData> {
        return db.getAllTasks()
     }
 

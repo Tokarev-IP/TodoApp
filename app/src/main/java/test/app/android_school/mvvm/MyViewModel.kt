@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import test.app.android_school.recycler.TaskData
 import test.app.android_school.retrofit.ApiRepository
+import test.app.android_school.room.ApiEntityTaskData
 
 import test.app.android_school.room.EntityTaskData
 
@@ -17,72 +18,61 @@ class MyViewModel() : ViewModel() {
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
     private var doneTaskCount: MutableLiveData<Int> = MutableLiveData()
     private val apiRep = ApiRepository()
+    lateinit var mRepository: MyRepository
+    lateinit var mApiRoomRepository: ApiRoomRepository
 
     fun getListOfTasks() = mutListOfTasks
 
     fun getDoneTaskCount() = doneTaskCount
 
-    private val vMScope = viewModelScope
-    private val viewMScope = viewModelScope
+    fun updateListOfTasks(
+        mTask: EntityTaskData,
+        mTaskData: TaskData,
+        mTaskApiData: ApiEntityTaskData,
+        appCompatActivity: AppCompatActivity
+    ){
+        mApiRoomRepository = ApiRoomRepository(appCompatActivity)
+        mRepository = MyRepository(appCompatActivity)
 
-    fun updateListOfTasks(mTask: EntityTaskData, mTaskData: TaskData, appCompatActivity: AppCompatActivity){
-        val mRepository = MyRepository(appCompatActivity)
-//        viewMScope.launch(Dispatchers.Main) {
-//
-//            mRepository.insertTask(mTask)
-//            mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
-//
-//        }
-        try {
+        viewModelScope.launch(Dispatchers.IO) {
 
-            viewModelScope.launch(Dispatchers.Default) {
-                Log.d("GET",
-                        apiRep.getTasksApi()
-                                .toString()
-                )
-            }
+            mRepository.insertTask(mTask)
+            mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
-//            vMScope.launch(Dispatchers.IO) {
-//                apiRep.postTaskApi(
-//                        "Bearer 39828f964ef548b9beb47356380ff358",
-//                        mTaskData)
-//            }
+            mApiRoomRepository.insertToApiRoom(mTaskApiData)
         }
-        catch (e: Exception)
-        {
-            Log.d("TAG", e.toString())}
 
     }
 
     fun getAllTaskData(appCompatActivity: AppCompatActivity){
-        val mRepository = MyRepository(appCompatActivity)
-        viewModelScope.launch(Dispatchers.Main) {
+        mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch(Dispatchers.IO) {
 
-            mutListOfTasks.value = mRepository.getAllTasks()
+            mutListOfTasks.postValue(mRepository.getAllTasksRep())
 
         }
     }
 
     fun getNotDoneTaskData(appCompatActivity: AppCompatActivity){
-        val mRepository = MyRepository(appCompatActivity)
-        viewModelScope.launch(Dispatchers.Main) {
+        mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch(Dispatchers.IO) {
 
-            mutListOfTasks.value = mRepository.getNotDoneAllTasks()
+            mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
         }
     }
 
     fun getDoneTaskData(appCompatActivity: AppCompatActivity) {
-        val mRepository = MyRepository(appCompatActivity)
-        viewModelScope.launch (Dispatchers.Main) {
+        mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch (Dispatchers.IO) {
 
-            doneTaskCount.value = mRepository.getDoneAllTasks()
+            doneTaskCount.postValue(mRepository.getDoneAllTasks())
         }
     }
 
     fun makeIsDone(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
-        val mRepository = MyRepository(appCompatActivity)
-        viewModelScope.launch(Dispatchers.Main) {
+        mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.makeDone(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
@@ -90,19 +80,29 @@ class MyViewModel() : ViewModel() {
         }
     }
 
-    fun deleteTask(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
-        val mRepository = MyRepository(appCompatActivity)
-        viewModelScope.launch(Dispatchers.Main) {
+    fun deleteTask(mTask: EntityTaskData, mTaskData: TaskData, appCompatActivity: AppCompatActivity){
+        mRepository = MyRepository(appCompatActivity)
+        try {
+
+        viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.deleteTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
         }
+
+            viewModelScope.launch(Dispatchers.IO) {
+//                apiRep.deleteTaskApi(mTask.id)
+            }
+            Log.d("TASKID", mTaskData.id)
+        }
+        catch (e: Exception)
+        {  }
     }
 
     fun updateTasks(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
-        val mRepository = MyRepository(appCompatActivity)
-        viewModelScope.launch(Dispatchers.Main) {
+        mRepository = MyRepository(appCompatActivity)
+        viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.updateTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())

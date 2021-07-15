@@ -20,9 +20,9 @@ data class TaskData(
         var deadline: Int,
 
         @SerializedName ("created_at")
-        var created_at: Int,
+        var createdAt: Int,
 
         @SerializedName ("updated_at")
-        var updated_at: Int,
+        var updatedAt: Int,
 ) {
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.recycler.TaskData
+import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,6 +20,7 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
     private val LONG = "long"
     lateinit var priority: String
+    lateinit var id: String
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
@@ -34,6 +36,8 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
         val mSpinner: Spinner = mInflater.findViewById(R.id.spinner)
         val mEditText: EditText = mInflater.findViewById(R.id.task_edit_text)
         val switch_calendare: Switch = mInflater.findViewById(R.id.switch_view)
+
+        val time = (System.currentTimeMillis()/1000).toInt()
 
         arguments?.getLong(LONG)?.let {
             dataText.text = SimpleDateFormat("dd-MM-yyyy").format(it)
@@ -66,26 +70,38 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
                         .show()
 
             else {
+                id = UUID.randomUUID().toString()
+
                 myViewModel.updateListOfTasks(
-                        EntityTaskData(
-                                UUID.randomUUID().toString(),
-                                mEditText.text.toString(),
-                                priority,
-                                false,
-                                System.currentTimeMillis()/1000,
-                                System.currentTimeMillis()/1000,
-                                System.currentTimeMillis()/1000
-                        ),
-                        TaskData(
-                                UUID.randomUUID().toString(),
-                                mEditText.text.toString(),
-                                "low",
-                                false,
-                                500,
-                                500,
-                                500
-                                ),
-                        context as AppCompatActivity)
+                    EntityTaskData(
+                        id,
+                        mEditText.text.toString(),
+                        priority,
+                        false,
+                        time,
+                        time,
+                        time
+                    ),
+                    TaskData(
+                        id,
+                        mEditText.text.toString(),
+                        priority,
+                        false,
+                        time,
+                        time,
+                        time,
+                    ),
+                    ApiEntityTaskData(
+                        id,
+                        mEditText.text.toString(),
+                        priority,
+                        false,
+                        time,
+                        time,
+                        time,
+                        "insert"
+                    ),
+                    context as AppCompatActivity)
 
                 (context as AppCompatActivity).supportFragmentManager
                     .beginTransaction()

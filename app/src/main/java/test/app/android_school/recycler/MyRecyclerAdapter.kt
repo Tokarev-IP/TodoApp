@@ -1,6 +1,7 @@
 package test.app.android_school.recycler
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +55,7 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
         }
 
         holder.taskDelete.setOnClickListener {
+            Log.d("ADAPTER_POSITION", position.toString())
             myViewModel.deleteTask(
                 EntityTaskData(
                     getItem(position).id,
@@ -63,8 +65,19 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                     getItem(position).deadline,
                     getItem(position).createdAt,
                     getItem(position).updatedAt,
-                ), appCompatActivity
+                ),
+                TaskData(
+                    getItem(position).id,
+                    getItem(position).text,
+                    getItem(position).importance,
+                    getItem(position).done,
+                    getItem(position).deadline,
+                    getItem(position).createdAt,
+                    getItem(position).updatedAt,
+                ),
+                appCompatActivity
             )
+
         }
 
         holder.infoButton.setOnClickListener {
@@ -72,7 +85,7 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
             val bundle = Bundle()
             bundle.putString(STRING, getItem(position).text)
 
-            getItem(position).deadline?.let{ it1 -> bundle.putLong(LONG, it1) }
+//            getItem(position).deadline.let{ it1 -> bundle.putLong(LONG, it1) }
 
             reWriteFragment.arguments = bundle
 

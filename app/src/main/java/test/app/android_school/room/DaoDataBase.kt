@@ -25,4 +25,14 @@ interface DaoDataBase {
 
     @Update
     suspend fun updateTask(mTask: EntityTaskData)
+
+
+    @Query("SELECT * from action_api_task_DataBase")
+    fun getAllTasksApiRoom(): List<ApiEntityTaskData>
+
+    @Insert
+    fun insertTaskApiRoom(mTask: ApiEntityTaskData)
+
+    @Delete
+    fun deleteTaskApiRoom(mTask: ApiEntityTaskData)
 }
