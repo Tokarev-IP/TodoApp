@@ -15,6 +15,7 @@ import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 

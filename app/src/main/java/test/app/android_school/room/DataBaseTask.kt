@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import dagger.Module
+import dagger.Provides
 
+@Module
 @Database(entities = [EntityTaskData::class, ApiEntityTaskData::class], version = 1)
 abstract class DataBaseTask : RoomDatabase() {
 
@@ -14,6 +17,7 @@ abstract class DataBaseTask : RoomDatabase() {
         @Volatile
         private var INSTANCE: DataBaseTask? = null
 
+        @Provides
         fun getDatabase(context: Context): DataBaseTask {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(

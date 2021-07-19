@@ -14,9 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val constraints = Constraints.Builder()
-//            .setRequiredNetworkType(NetworkType.CONNECTED)
-//            .build()
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
 
 //        val workRequest = PeriodicWorkRequestBuilder<BackgroundApiWorker>(
 //            15, TimeUnit.MINUTES, 10, TimeUnit.MINUTES
@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 //            .setConstraints(constraints)
 //            .build()
 
-        val workRequest: WorkRequest = OneTimeWorkRequestBuilder<BackgroundApiWorker>()
-//            .setConstraints(constraints)
+        val workRequest: WorkRequest = OneTimeWorkRequest.Builder(BackgroundApiWorker::class.java)
+            .setConstraints(constraints)
             .addTag("API")
             .build()
 
