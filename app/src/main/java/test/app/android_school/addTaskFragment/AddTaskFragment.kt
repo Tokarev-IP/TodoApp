@@ -17,17 +17,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
+class AddTaskFragment() : Fragment() {
 
     private val LONG = "long"
     lateinit var priority: String
     lateinit var id: String
+
+    @Inject
+    lateinit var myViewModel: MyViewModel
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
 
         val mInflater = inflater.inflate(R.layout.fragment_add_task, container, false)
 
@@ -101,8 +105,7 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
                         time,
                         time,
                         "insert"
-                    ),
-                    context as AppCompatActivity)
+                    ))
 
                 (context as AppCompatActivity).supportFragmentManager
                     .beginTransaction()

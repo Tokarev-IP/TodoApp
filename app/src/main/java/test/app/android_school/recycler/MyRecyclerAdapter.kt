@@ -49,7 +49,7 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                     getItem(position).deadline,
                     getItem(position).createdAt,
                     getItem(position).updatedAt,
-                ), appCompatActivity
+                )
             )
 
         }
@@ -74,8 +74,7 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                     getItem(position).deadline,
                     getItem(position).createdAt,
                     getItem(position).updatedAt,
-                ),
-                appCompatActivity
+                )
             )
 
         }

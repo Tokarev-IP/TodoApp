@@ -34,7 +34,7 @@ class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
 
         val okButton: Button = mInflater.findViewById(R.id.ok_calendare_button)
 
-        val mAddTaskFragment = AddTaskFragment(myViewModel)
+        val mAddTaskFragment = AddTaskFragment()
 
         okButton.setOnClickListener {
 

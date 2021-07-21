@@ -4,22 +4,24 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.Module
+import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import test.app.android_school.recycler.TaskData
-import test.app.android_school.retrofit.ApiRepository
 import test.app.android_school.room.ApiEntityTaskData
 
 import test.app.android_school.room.EntityTaskData
+import javax.inject.Inject
 
-class MyViewModel() : ViewModel() {
+class MyViewModel @Inject constructor(
+        private val mRepository: MyRepository,
+) : ViewModel() {
 
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
     private var doneTaskCount: MutableLiveData<Int> = MutableLiveData()
-    private val apiRep = ApiRepository()
-    lateinit var mRepository: MyRepository
-    lateinit var mApiRoomRepository: ApiRoomRepository
 
     fun getListOfTasks() = mutListOfTasks
 
@@ -29,23 +31,22 @@ class MyViewModel() : ViewModel() {
         mTask: EntityTaskData,
         mTaskData: TaskData,
         mTaskApiData: ApiEntityTaskData,
-        appCompatActivity: AppCompatActivity
     ){
-        mApiRoomRepository = ApiRoomRepository(appCompatActivity)
-        mRepository = MyRepository(appCompatActivity)
+//        mApiRoomRepository = ApiRoomRepository(appCompatActivity)
+//        mRepository = MyRepository(appCompatActivity)
 
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.insertTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
-            mApiRoomRepository.insertToApiRoom(mTaskApiData)
+//            mApiRoomRepository.insertToApiRoom(mTaskApiData)
         }
 
     }
 
-    fun getAllTaskData(appCompatActivity: AppCompatActivity){
-        mRepository = MyRepository(appCompatActivity)
+    fun getAllTaskData(){
+//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mutListOfTasks.postValue(mRepository.getAllTasksRep())
@@ -53,8 +54,8 @@ class MyViewModel() : ViewModel() {
         }
     }
 
-    fun getNotDoneTaskData(appCompatActivity: AppCompatActivity){
-        mRepository = MyRepository(appCompatActivity)
+    fun getNotDoneTaskData(){
+//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
@@ -62,16 +63,16 @@ class MyViewModel() : ViewModel() {
         }
     }
 
-    fun getDoneTaskData(appCompatActivity: AppCompatActivity) {
-        mRepository = MyRepository(appCompatActivity)
+    fun getDoneTaskData() {
+//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch (Dispatchers.IO) {
 
             doneTaskCount.postValue(mRepository.getDoneAllTasks())
         }
     }
 
-    fun makeIsDone(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
-        mRepository = MyRepository(appCompatActivity)
+    fun makeIsDone(mTask: EntityTaskData){
+//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.makeDone(mTask)
@@ -80,8 +81,8 @@ class MyViewModel() : ViewModel() {
         }
     }
 
-    fun deleteTask(mTask: EntityTaskData, mTaskData: TaskData, appCompatActivity: AppCompatActivity){
-        mRepository = MyRepository(appCompatActivity)
+    fun deleteTask(mTask: EntityTaskData, mTaskData: TaskData){
+//        mRepository = MyRepository(appCompatActivity)
         try {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -100,8 +101,8 @@ class MyViewModel() : ViewModel() {
         {  }
     }
 
-    fun updateTasks(mTask: EntityTaskData, appCompatActivity: AppCompatActivity){
-        mRepository = MyRepository(appCompatActivity)
+    fun updateTasks(mTask: EntityTaskData){
+//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.updateTask(mTask)

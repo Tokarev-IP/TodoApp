@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.work.*
 import test.app.android_school.R
-import test.app.android_school.background.BackgroundApiWorker
+//import test.app.android_school.background.BackgroundApiWorker
 import test.app.android_school.recycler.RecyclerFragment
 import java.util.concurrent.TimeUnit
 
@@ -24,20 +24,20 @@ class MainActivity : AppCompatActivity() {
 //            .setConstraints(constraints)
 //            .build()
 
-        val workRequest: WorkRequest = OneTimeWorkRequest.Builder(BackgroundApiWorker::class.java)
-            .setConstraints(constraints)
-            .addTag("API")
-            .build()
+//        val workRequest: WorkRequest = OneTimeWorkRequest.Builder(BackgroundApiWorker::class.java)
+//            .setConstraints(constraints)
+//            .addTag("API")
+//            .build()
+//
+//        WorkManager
+//            .getInstance(this)
+//            .enqueue(workRequest)
 
-        WorkManager
-            .getInstance(this)
-            .enqueue(workRequest)
 
-
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_frame, RecyclerFragment.newInstance())
-            .commit()
+//        supportFragmentManager
+//            .beginTransaction()
+//            .add(R.id.fragment_frame, RecyclerFragment.newInstance())
+//            .commit()
     }
 
 }

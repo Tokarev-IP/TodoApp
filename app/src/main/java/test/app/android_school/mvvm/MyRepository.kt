@@ -1,39 +1,38 @@
 package test.app.android_school.mvvm
 
-import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.room.DataBaseTask
 import test.app.android_school.room.EntityTaskData
+import javax.inject.Inject
 
-class MyRepository(appCompatActivity: AppCompatActivity) {
+class MyRepository @Inject constructor(db: DataBaseTask) {
 
-    private val db = DataBaseTask.getDatabase(appCompatActivity.applicationContext).taskDao()
+    private val dbDao = db.taskDao()
 
     suspend fun insertTask(mTask: EntityTaskData) {
-        db.insertTask(mTask)
+        dbDao.insertTask(mTask)
     }
 
     suspend fun getAllTasksRep(): List<EntityTaskData> {
-       return db.getAllTasks()
+       return dbDao.getAllTasks()
     }
 
     suspend fun getNotDoneAllTasks(): List<EntityTaskData> {
-        return db.getNoCompleteTasks()
+        return dbDao.getNoCompleteTasks()
     }
 
     suspend fun getDoneAllTasks(): Int {
-        return db.getCountCompleteTasks()
+        return dbDao.getCountCompleteTasks()
     }
 
     suspend fun makeDone(mTask: EntityTaskData){
-        db.makeTaskIsDone(mTask)
+        dbDao.makeTaskIsDone(mTask)
     }
 
     suspend fun deleteTask(mTask: EntityTaskData){
-        db.deleteTask(mTask)
+        dbDao.deleteTask(mTask)
     }
 
     suspend fun updateTask(mTask: EntityTaskData) {
-        db.updateTask(mTask)
+        dbDao.updateTask(mTask)
     }
-
 }

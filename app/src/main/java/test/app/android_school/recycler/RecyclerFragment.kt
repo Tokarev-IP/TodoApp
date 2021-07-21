@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.addTaskFragment.AddTaskFragment
+import javax.inject.Inject
 
 class RecyclerFragment : Fragment() {
 
@@ -26,6 +27,9 @@ class RecyclerFragment : Fragment() {
             return RecyclerFragment()
         }
     }
+
+    @Inject
+    lateinit var myViewModel: MyViewModel
 
     private var visible: Boolean = false
 
@@ -36,8 +40,6 @@ class RecyclerFragment : Fragment() {
     ): View? {
 
         val mInflater = inflater.inflate(R.layout.fragment_recycler, container, false)
-
-        val myViewModel: MyViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
         val mAdapter = MyRecyclerAdapter(context as AppCompatActivity, myViewModel)
         val mRecyclerView = mInflater.findViewById<RecyclerView>(R.id.recycler)
@@ -55,20 +57,20 @@ class RecyclerFragment : Fragment() {
 
         if (visible) {
             visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_off_25)
-            myViewModel.getAllTaskData(context as AppCompatActivity)
+            myViewModel.getAllTaskData()
         } else {
             visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_25)
-            myViewModel.getNotDoneTaskData(context as AppCompatActivity)
+            myViewModel.getNotDoneTaskData()
         }
 
         visible_button.setOnClickListener {
             if (visible) {
                 visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_25)
-                myViewModel.getNotDoneTaskData(context as AppCompatActivity)
+                myViewModel.getNotDoneTaskData()
                 visible = false
             } else {
                 visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_off_25)
-                myViewModel.getAllTaskData(context as AppCompatActivity)
+                myViewModel.getAllTaskData()
                 visible = true
             }
         }
@@ -76,14 +78,14 @@ class RecyclerFragment : Fragment() {
         floatingButton.setOnClickListener {
             (context as AppCompatActivity).supportFragmentManager
                 .beginTransaction()
-                .add(R.id.fragment_frame, AddTaskFragment(myViewModel))
+                .add(R.id.fragment_frame, AddTaskFragment())
                 .addToBackStack("add_fragment")
                 .commit()
         }
 
         myViewModel.getListOfTasks().observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
-            myViewModel.getDoneTaskData(context as AppCompatActivity)
+            myViewModel.getDoneTaskData()
         })
 
         myViewModel.getDoneTaskCount().observe(viewLifecycleOwner, Observer {
