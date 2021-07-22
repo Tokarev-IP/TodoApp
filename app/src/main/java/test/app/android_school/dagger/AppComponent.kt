@@ -7,9 +7,11 @@ import dagger.Component
 import test.app.android_school.addTaskFragment.AddTaskFragment
 import test.app.android_school.mvvm.MainActivity
 import test.app.android_school.recycler.RecyclerFragment
+import test.app.android_school.viewModel.ViewModelModule
 
 @Component (modules = [
-    DaggerObjects::class
+    DaggerObjects::class,
+    ViewModelModule::class
 ])
 
 interface AppComponent {

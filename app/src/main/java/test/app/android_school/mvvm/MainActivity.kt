@@ -3,7 +3,7 @@ package test.app.android_school.mvvm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
-import androidx.work.*
+import androidx.lifecycle.ViewModelProvider
 import test.app.android_school.R
 import test.app.android_school.dagger.MyApplication
 //import test.app.android_school.background.BackgroundApiWorker
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var myViewModel: MyViewModel
+    lateinit var myViewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         (application as MyApplication)
                 .myAppComponent
                 .inject(this)
+
+        val myViewModel = ViewModelProvider(this, myViewModelFactory)
+                .get(MyViewModel::class.java)
 
 //        val constraints = Constraints.Builder()
 //            .setRequiredNetworkType(NetworkType.CONNECTED)
