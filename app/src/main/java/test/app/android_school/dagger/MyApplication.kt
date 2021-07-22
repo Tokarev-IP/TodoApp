@@ -10,6 +10,7 @@ class MyApplication: Application() {
                 .factory()
                 .create(this)
     }
+
 //    val daga = DaggerObjects().getMyViewModel(this)
 
 }

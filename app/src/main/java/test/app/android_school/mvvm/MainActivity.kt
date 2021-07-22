@@ -15,7 +15,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var myViewModelFactory: ViewModelProvider.Factory
+    lateinit var myViewModelFactory: MyRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
         (application as MyApplication)
                 .myAppComponent
                 .inject(this)
-
-        val myViewModel = ViewModelProvider(this, myViewModelFactory)
-                .get(MyViewModel::class.java)
 
 //        val constraints = Constraints.Builder()
 //            .setRequiredNetworkType(NetworkType.CONNECTED)

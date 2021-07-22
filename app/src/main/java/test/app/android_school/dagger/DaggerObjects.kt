@@ -1,13 +1,11 @@
 package test.app.android_school.dagger
 
-import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import test.app.android_school.mvvm.MainActivity
 import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.room.DataBaseTask
 
