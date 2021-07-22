@@ -83,15 +83,6 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
                         time,
                         time
                     ),
-                    TaskData(
-                        id,
-                        mEditText.text.toString(),
-                        priority,
-                        false,
-                        time,
-                        time,
-                        time,
-                    ),
                     ApiEntityTaskData(
                         id,
                         mEditText.text.toString(),

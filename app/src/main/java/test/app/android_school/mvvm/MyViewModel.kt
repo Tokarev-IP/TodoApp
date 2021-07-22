@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 class MyViewModel @Inject constructor(
         private val mRepository: MyRepository,
+        private val mApiRoomRepository: ApiRoomRepository,
 ) : ViewModel() {
 
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
@@ -24,24 +25,16 @@ class MyViewModel @Inject constructor(
 
     fun updateListOfTasks(
         mTask: EntityTaskData,
-        mTaskData: TaskData,
         mTaskApiData: ApiEntityTaskData,
     ){
-//        mApiRoomRepository = ApiRoomRepository(appCompatActivity)
-//        mRepository = MyRepository(appCompatActivity)
-
         viewModelScope.launch(Dispatchers.IO) {
-
             mRepository.insertTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
-
-//            mApiRoomRepository.insertToApiRoom(mTaskApiData)
+            mApiRoomRepository.insertToApiRoom(mTaskApiData)
         }
-
     }
 
     fun getAllTaskData(){
-//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mutListOfTasks.postValue(mRepository.getAllTasksRep())
@@ -50,7 +43,6 @@ class MyViewModel @Inject constructor(
     }
 
     fun getNotDoneTaskData(){
-//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
@@ -59,7 +51,6 @@ class MyViewModel @Inject constructor(
     }
 
     fun getDoneTaskData() {
-//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch (Dispatchers.IO) {
 
             doneTaskCount.postValue(mRepository.getDoneAllTasks())
@@ -67,7 +58,6 @@ class MyViewModel @Inject constructor(
     }
 
     fun makeIsDone(mTask: EntityTaskData){
-//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.makeDone(mTask)
@@ -77,7 +67,6 @@ class MyViewModel @Inject constructor(
     }
 
     fun deleteTask(mTask: EntityTaskData, mTaskData: TaskData){
-//        mRepository = MyRepository(appCompatActivity)
         try {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -97,7 +86,6 @@ class MyViewModel @Inject constructor(
     }
 
     fun updateTasks(mTask: EntityTaskData){
-//        mRepository = MyRepository(appCompatActivity)
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.updateTask(mTask)
