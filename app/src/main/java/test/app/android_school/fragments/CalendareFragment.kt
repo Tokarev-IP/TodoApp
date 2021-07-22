@@ -1,9 +1,7 @@
-package test.app.android_school.addTaskFragment
+package test.app.android_school.fragments
 
 import android.annotation.SuppressLint
-import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +11,6 @@ import android.widget.CalendarView
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
@@ -34,7 +30,7 @@ class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
 
         val okButton: Button = mInflater.findViewById(R.id.ok_calendare_button)
 
-        val mAddTaskFragment = AddTaskFragment()
+        val mAddTaskFragment = AddTaskFragment(myViewModel)
 
         okButton.setOnClickListener {
 

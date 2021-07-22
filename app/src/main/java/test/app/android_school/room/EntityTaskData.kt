@@ -3,7 +3,6 @@ package test.app.android_school.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "task_DataBase")
 data class EntityTaskData(

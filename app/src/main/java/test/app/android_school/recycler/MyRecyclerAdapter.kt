@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ListAdapter
-import com.google.android.material.timepicker.TimeFormat
 import test.app.android_school.R
-import test.app.android_school.addTaskFragment.AddTaskFragment
-import test.app.android_school.addTaskFragment.ReWriteTaskFragment
+import test.app.android_school.fragments.ReWriteTaskFragment
 import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.room.EntityTaskData
 

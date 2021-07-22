@@ -1,4 +1,4 @@
-package test.app.android_school.addTaskFragment
+package test.app.android_school.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,10 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
-import test.app.android_school.recycler.TaskData
-import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
-import java.util.*
 
 class ReWriteTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 

@@ -2,20 +2,17 @@ package test.app.android_school.mvvm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import test.app.android_school.R
 import test.app.android_school.dagger.MyApplication
 //import test.app.android_school.background.BackgroundApiWorker
-import test.app.android_school.recycler.RecyclerFragment
-import test.app.android_school.room.DataBaseTask
-import java.util.concurrent.TimeUnit
+import test.app.android_school.fragments.RecyclerFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var myViewModelFactory: MyRepository
+    lateinit var myViewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         (application as MyApplication)
                 .myAppComponent
                 .inject(this)
+
+
+        val myViewModel: MyViewModel = ViewModelProvider(this, myViewModelFactory).get(MyViewModel::class.java)
 
 //        val constraints = Constraints.Builder()
 //            .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
 //            .enqueue(workRequest)
 
 
-//        supportFragmentManager
-//            .beginTransaction()
-//            .add(R.id.fragment_frame, RecyclerFragment.newInstance())
-//            .commit()
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_frame, RecyclerFragment(myViewModel))
+            .commit()
     }
 
 }

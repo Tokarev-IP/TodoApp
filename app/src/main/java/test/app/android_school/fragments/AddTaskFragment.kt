@@ -1,4 +1,4 @@
-package test.app.android_school.addTaskFragment
+package test.app.android_school.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,33 +9,25 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
-import test.app.android_school.dagger.MyApplication
 import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.recycler.TaskData
 import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
-class AddTaskFragment() : Fragment() {
+class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
     private val LONG = "long"
     lateinit var priority: String
     lateinit var id: String
 
-    @Inject
-    lateinit var myViewModel: MyViewModel
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        MyApplication()
-                .myAppComponent
-                .inject(this)
 
         val mInflater = inflater.inflate(R.layout.fragment_add_task, container, false)
 

@@ -1,7 +1,6 @@
 package test.app.android_school.retrofit
 
 import test.app.android_school.recycler.TaskData
-import test.app.android_school.room.EntityTaskData
 
 class ApiRepository() {
 

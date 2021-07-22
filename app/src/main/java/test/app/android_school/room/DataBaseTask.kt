@@ -1,8 +1,6 @@
 package test.app.android_school.room
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [EntityTaskData::class, ApiEntityTaskData::class], version = 1)

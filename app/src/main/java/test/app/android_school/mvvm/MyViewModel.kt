@@ -1,13 +1,9 @@
 package test.app.android_school.mvvm
 
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import dagger.Module
-import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import test.app.android_school.recycler.TaskData
@@ -24,7 +20,6 @@ class MyViewModel @Inject constructor(
     private var doneTaskCount: MutableLiveData<Int> = MutableLiveData()
 
     fun getListOfTasks() = mutListOfTasks
-
     fun getDoneTaskCount() = doneTaskCount
 
     fun updateListOfTasks(
