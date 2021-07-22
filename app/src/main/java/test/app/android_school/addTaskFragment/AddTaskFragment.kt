@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
+import test.app.android_school.dagger.MyApplication
 import test.app.android_school.mvvm.MyViewModel
 import test.app.android_school.recycler.TaskData
 import test.app.android_school.room.ApiEntityTaskData
@@ -32,6 +33,9 @@ class AddTaskFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        MyApplication()
+                .myAppComponent
+                .inject(this)
 
         val mInflater = inflater.inflate(R.layout.fragment_add_task, container, false)
 
