@@ -19,11 +19,12 @@ class MyViewModel @Inject constructor(
 
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
     private var doneTaskCount: MutableLiveData<Int> = MutableLiveData()
+    private var time: Int = 0
 
     fun getListOfTasks() = mutListOfTasks
     fun getDoneTaskCount() = doneTaskCount
 
-    fun updateListOfTasks(
+    fun insertTaskToRoom(
         mTask: EntityTaskData,
         mTaskApiData: ApiEntityTaskData,
     ){
@@ -36,7 +37,6 @@ class MyViewModel @Inject constructor(
 
     fun getAllTaskData(){
         viewModelScope.launch(Dispatchers.IO) {
-
             mutListOfTasks.postValue(mRepository.getAllTasksRep())
 
         }
@@ -44,7 +44,6 @@ class MyViewModel @Inject constructor(
 
     fun getNotDoneTaskData(){
         viewModelScope.launch(Dispatchers.IO) {
-
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
         }
@@ -52,14 +51,12 @@ class MyViewModel @Inject constructor(
 
     fun getDoneTaskData() {
         viewModelScope.launch (Dispatchers.IO) {
-
             doneTaskCount.postValue(mRepository.getDoneAllTasks())
         }
     }
 
     fun makeIsDone(mTask: EntityTaskData){
         viewModelScope.launch(Dispatchers.IO) {
-
             mRepository.makeDone(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
@@ -92,6 +89,10 @@ class MyViewModel @Inject constructor(
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
         }
+    }
+
+    fun setTime(mTime: Int){
+        time = mTime
     }
 
 }

@@ -73,7 +73,7 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
             else {
                 id = UUID.randomUUID().toString()
 
-                myViewModel.updateListOfTasks(
+                myViewModel.insertTaskToRoom(
                     EntityTaskData(
                         id,
                         mEditText.text.toString(),

@@ -11,11 +11,13 @@ import android.widget.CalendarView
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
 
-    private val LONG = "long"
+    private val time = 
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -32,14 +34,16 @@ class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
 
         val mAddTaskFragment = AddTaskFragment(myViewModel)
 
+        calendare.setOnDateChangeListener { view, year, month, dayOfMonth ->
+
+            val stringDate: String = dayOfMonth.toString()+" "+month.toString()+" "+year.toString()
+            val date: Date = SimpleDateFormat("dd MM yyyy").parse(stringDate)
+            val intTine: Int = ((date.time)/1000).toInt()
+
+        }
+
         okButton.setOnClickListener {
-
-            val bundle = Bundle()
-
-            bundle.putLong(LONG, calendare.date)
-
-
-            mAddTaskFragment.arguments = bundle
+            myViewModel.setTime()
 
             (context as AppCompatActivity)
                     .supportFragmentManager
