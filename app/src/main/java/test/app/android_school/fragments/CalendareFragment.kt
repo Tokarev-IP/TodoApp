@@ -2,6 +2,7 @@ package test.app.android_school.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,12 @@ import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
 
-    private val time = 
+    var time by Delegates.notNull<Int>()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -34,16 +36,18 @@ class CalendareFragment(private val myViewModel: MyViewModel) : Fragment() {
 
         val mAddTaskFragment = AddTaskFragment(myViewModel)
 
+        time = (calendare.date/1000).toInt()
+
         calendare.setOnDateChangeListener { view, year, month, dayOfMonth ->
-
-            val stringDate: String = dayOfMonth.toString()+" "+month.toString()+" "+year.toString()
+            val stringDate: String = dayOfMonth.toString()+" "+(month+1).toString()+" "+year.toString()
+            Log.d("TAG", stringDate )
             val date: Date = SimpleDateFormat("dd MM yyyy").parse(stringDate)
-            val intTine: Int = ((date.time)/1000).toInt()
-
+            time = ((date.time)/1000).toInt()
+            Log.d("TAG", time.toString() )
         }
 
         okButton.setOnClickListener {
-            myViewModel.setTime()
+            myViewModel.setTime(time)
 
             (context as AppCompatActivity)
                     .supportFragmentManager

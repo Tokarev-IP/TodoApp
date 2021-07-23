@@ -19,10 +19,11 @@ class MyViewModel @Inject constructor(
 
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
     private var doneTaskCount: MutableLiveData<Int> = MutableLiveData()
-    private var time: Int = 0
+    private var time: MutableLiveData<Int> = MutableLiveData()
 
     fun getListOfTasks() = mutListOfTasks
     fun getDoneTaskCount() = doneTaskCount
+    fun getTime() = time
 
     fun insertTaskToRoom(
         mTask: EntityTaskData,
@@ -92,7 +93,10 @@ class MyViewModel @Inject constructor(
     }
 
     fun setTime(mTime: Int){
-        time = mTime
+        viewModelScope.launch(Dispatchers.IO) {
+            time.postValue(mTime)
+        }
     }
+
 
 }

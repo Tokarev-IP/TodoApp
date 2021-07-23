@@ -11,7 +11,6 @@
     app:leftItem="@id/image_view_left"
     app:autoMovingSensitivity="1000"
     android:background="@color/back_secondary"
-    android:layout_marginVertical="5dp"
     >
 
     <ImageButton
@@ -37,7 +36,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp"
+        android:paddingVertical="10dp"
         android:id="@+id/relative_layout"
         tools:ignore="MissingConstraints"
         android:background="@color/white"
@@ -77,7 +76,6 @@
             android:src="@drawable/ic_baseline_info_20_gray"
             android:layout_alignParentEnd="true"
             android:background="@color/back_elevated"
-            android:layout_marginTop="12dp"
             />
 
     </RelativeLayout>

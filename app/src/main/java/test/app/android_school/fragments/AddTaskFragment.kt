@@ -10,17 +10,18 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
-import test.app.android_school.recycler.TaskData
 import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
-    private val LONG = "long"
     lateinit var priority: String
     lateinit var id: String
+    var deadLine by Delegates.notNull<Int>()
+    var time: Int = (System.currentTimeMillis()/1000L).toInt()
 
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
@@ -38,11 +39,11 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
         val mEditText: EditText = mInflater.findViewById(R.id.task_edit_text)
         val switch_calendare: Switch = mInflater.findViewById(R.id.switch_view)
 
-        val time = (System.currentTimeMillis()/1000).toInt()
+        myViewModel.getTime().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
+            dataText.text = SimpleDateFormat("dd-MM-yyyy").format(it*1000L)
+            deadLine  = it
+        })
 
-        arguments?.getLong(LONG)?.let {
-            dataText.text = SimpleDateFormat("dd-MM-yyyy").format(it)
-        }
 
         switch_calendare.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
@@ -79,18 +80,18 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
                         mEditText.text.toString(),
                         priority,
                         false,
-                        time,
-                        time,
-                        time
+                            deadLine ,
+                            time,
+                            time
                     ),
                     ApiEntityTaskData(
                         id,
                         mEditText.text.toString(),
                         priority,
                         false,
-                        time,
-                        time,
-                        time,
+                            deadLine ,
+                            time,
+                            time,
                         "insert"
                     ))
 
