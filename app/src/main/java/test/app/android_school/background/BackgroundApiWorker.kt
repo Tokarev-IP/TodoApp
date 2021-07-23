@@ -14,11 +14,15 @@ import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class BackgroundApiWorker @Inject constructor (appContext: Context,
-                                               workerParams: WorkerParameters,
-                                               private val apiRoomRep: ApiRoomRepository,
-                                               private val apiRep: ApiRepository
+class BackgroundApiWorker (appContext: Context,
+                           workerParams: WorkerParameters,
 ): Worker(appContext, workerParams) {
+
+    @Inject
+    init {
+        private val apiRoomRep: ApiRoomRepository = ApiRoomRepository()
+        private val apiRep: ApiRepository
+    }
 
     override fun doWork(): Result {
 

@@ -10,12 +10,25 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import test.app.android_school.R
 import test.app.android_school.mvvm.MyViewModel
+import test.app.android_school.room.ApiEntityTaskData
+import test.app.android_school.room.EntityTaskData
 import java.text.SimpleDateFormat
+import java.util.*
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
-class ReWriteTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
+class ReWriteTaskFragment @Inject constructor(private val myViewModel: MyViewModel) : Fragment() {
 
-    private val STRING = "string"
-    private val LONG = "long"
+    private val TEXT = "text"
+    private val ID = "id"
+    private val CREATEDAT = "created_at"
+    private val DEADLINE = "deadLine"
+
+    private var deadLine by Delegates.notNull<Int>()
+    private var createdAt by Delegates.notNull<Int>()
+
+    lateinit var id: String
+    lateinit var priority: String
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
@@ -32,12 +45,27 @@ class ReWriteTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
         val mEditText: EditText = mInflater.findViewById(R.id.task_edit_text)
         val switch_calendare: Switch = mInflater.findViewById(R.id.switch_view)
 
-        arguments?.getString(STRING)?.let {
+        when (mSpinner.selectedItemPosition){
+            0 -> priority = "low"
+            1 -> priority = "basic"
+            2 -> priority = "important"
+        }
+
+        arguments?.getString(TEXT)?.let {
             mEditText.setText(it)
         }
 
-        arguments?.getLong(LONG)?.let {
+        arguments?.getString(ID)?.let {
+            id = it
+        }
+
+        arguments?.getInt(DEADLINE)?.let {
             dataText.text = SimpleDateFormat("dd-MM-yyyy").format(it)
+            deadLine = it
+        }
+
+        arguments?.getInt(CREATEDAT)?.let {
+            createdAt = it
         }
 
         switch_calendare.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -51,40 +79,47 @@ class ReWriteTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
             }
         }
 
-//        okButton.setOnClickListener {
-//            if (mEditText.text.toString() == "")
-//                Toast.makeText(
-//                        context as AppCompatActivity,
-//                        "Введите задачу",
-//                        Toast.LENGTH_LONG)
-//                        .show()
-//            else {
-//                myViewModel.updateListOfTasks(
-//                        EntityTaskData(
-//                                UUID.randomUUID().toString(),
-//                                mEditText.text.toString(),
-//                                mSpinner.selectedItemPosition.toString(),
-//                                false,
-//                                System.currentTimeMillis(),
-//                                System.currentTimeMillis(),
-//                                System.currentTimeMillis()
-//                        ),
-//                        TaskData(
-//                                UUID.randomUUID().toString(),
-//                                mEditText.text.toString(),
-//                                priority,
-//                                false,
-//                                System.currentTimeMillis()/1000,
-//                                System.currentTimeMillis()/1000,
-//                                System.currentTimeMillis()/1000
-//                ), context as AppCompatActivity)
-//
-//                (context as AppCompatActivity).supportFragmentManager
-//                        .beginTransaction()
-//                        .remove(this)
-//                        .commit()
-//            }
-//        }
+        myViewModel.getTime().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
+            dataText.text = SimpleDateFormat("dd-MM-yyyy").format(it*1000L)
+            deadLine  = it
+        })
+
+        okButton.setOnClickListener {
+            if (mEditText.text.toString() == "")
+                Toast.makeText(
+                        context as AppCompatActivity,
+                        "Введите задачу",
+                        Toast.LENGTH_LONG)
+                        .show()
+            else {
+                myViewModel.updateTasks(
+                    EntityTaskData(
+                        id,
+                        mEditText.text.toString(),
+                        priority,
+                        false,
+                        deadLine,
+                        createdAt,
+                        (System.currentTimeMillis()/1000L).toInt()
+                        ),
+                    ApiEntityTaskData(
+                        id,
+                        mEditText.text.toString(),
+                        priority,
+                        false,
+                        deadLine,
+                        createdAt,
+                        (System.currentTimeMillis()/1000L).toInt(),
+                        "update"
+                    ),
+                )
+
+                (context as AppCompatActivity).supportFragmentManager
+                        .beginTransaction()
+                        .remove(this)
+                        .commit()
+            }
+        }
 
         cancelButton.setOnClickListener {
             (context as AppCompatActivity).supportFragmentManager

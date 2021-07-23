@@ -27,12 +27,23 @@ interface DaoDataBase {
     suspend fun updateTask(mTask: EntityTaskData)
 
 
+
     @Query("SELECT * from action_api_task_DataBase")
-    fun getAllTasksApiRoom(): List<ApiEntityTaskData>
+    suspend fun getAllTasksApiRoom(): List<ApiEntityTaskData>
 
     @Insert
-    fun insertTaskApiRoom(mTask: ApiEntityTaskData)
+    suspend fun insertTaskApiRoom(mTask: ApiEntityTaskData)
+
+    @Query ("DELETE from action_api_task_DataBase WHERE id = :mId")
+    fun deleteFromApiRoomWhereId(mId: String)
 
     @Delete
-    fun deleteTaskApiRoom(mTask: ApiEntityTaskData)
+    suspend fun deleteTaskApiRoom(mTask: ApiEntityTaskData)
+
+    @Query ("SELECT * from action_api_task_DataBase WHERE id = :mId AND  action_api ='insert'")
+    suspend fun findInApiRoomWithIdInsert(mId: String): List<ApiEntityTaskData>
+
+    @Query ("SELECT * from action_api_task_DataBase WHERE id = :mId AND action_api ='update'")
+    suspend fun findInApiRoomWithIdUpdate(mId: String): List<ApiEntityTaskData>
+
 }

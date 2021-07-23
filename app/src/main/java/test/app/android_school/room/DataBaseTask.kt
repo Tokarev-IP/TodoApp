@@ -8,22 +8,6 @@ abstract class DataBaseTask: RoomDatabase() {
 
     abstract fun taskDao(): DaoDataBase
 
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: DataBaseTask? = null
-//
-//        fun getDatabase(context: Context): DataBaseTask {
-//            return INSTANCE ?: synchronized(this) {
-//                val instance = Room.databaseBuilder(
-//                        context.applicationContext,
-//                        DataBaseTask::class.java,
-//                        "task_database"
-//                ).build()
-//                INSTANCE = instance
-//                instance
-//            }
-//        }
-//    }
 
 }
 

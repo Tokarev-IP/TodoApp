@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ApiRoomRepository @Inject constructor(
         private val context: Context,
-        private val db: DataBaseTask)
+        db: DataBaseTask)
 {
 
     private val dbDao = db.taskDao()
@@ -16,10 +16,22 @@ class ApiRoomRepository @Inject constructor(
         dbDao.insertTaskApiRoom(mTask)
     }
 
-    fun getTasksFromApiRoom() = dbDao.getAllTasksApiRoom()
+    suspend fun getTasksFromApiRoom() = dbDao.getAllTasksApiRoom()
 
-    fun deleteFromApiRoom(mTask: ApiEntityTaskData){
+    suspend fun deleteFromApiRoom(mTask: ApiEntityTaskData){
         dbDao.deleteTaskApiRoom(mTask)
+    }
+
+    suspend fun deleteId(mTask: ApiEntityTaskData){
+        dbDao.deleteFromApiRoomWhereId(mTask.id)
+    }
+
+    suspend fun findInsert(mTask: ApiEntityTaskData): List<ApiEntityTaskData> {
+        return dbDao.findInApiRoomWithIdInsert(mTask.id)
+    }
+
+    suspend fun findUpdate(mTask: ApiEntityTaskData): List<ApiEntityTaskData> {
+        return dbDao.findInApiRoomWithIdUpdate(mTask.id)
     }
 
 }

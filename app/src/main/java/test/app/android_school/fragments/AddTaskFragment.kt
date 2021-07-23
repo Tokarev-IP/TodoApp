@@ -23,7 +23,6 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
     var deadLine by Delegates.notNull<Int>()
     var time: Int = (System.currentTimeMillis()/1000L).toInt()
 
-
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

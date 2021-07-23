@@ -14,8 +14,10 @@ import test.app.android_school.room.EntityTaskData
 class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, private val myViewModel: MyViewModel) :
     ListAdapter<EntityTaskData, MyViewHolder>(MyDiffUtil()) {
 
-    private val STRING = "string"
-    private val LONG = "long"
+    private val TEXT = "text"
+    private val ID = "id"
+    private val CREATEDAT = "created_at"
+    private val DEADLINE = "deadLine"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater
@@ -29,12 +31,13 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
 
         if (getItem(position).done)
             holder.imageCheck.setBackgroundResource(R.drawable.ic_baseline_check_box_25)
-
-        getItem(position).deadline?.let {
-            if (it< System.currentTimeMillis() && !getItem(position).done)
-                holder.imageCheck.setBackgroundResource(R.drawable.ic_baseline_check_box_outline_blank_25)
-            if (it> System.currentTimeMillis() && !getItem(position).done)
-                holder.imageCheck.setBackgroundResource(R.drawable.ic_baseline_check_box_outline_blank_25_gray)
+        else {
+            getItem(position).deadline.apply {
+                if (this < (System.currentTimeMillis()/1000L).toInt())
+                    holder.imageCheck.setBackgroundResource(R.drawable.ic_baseline_check_box_outline_blank_25)
+                if (this > (System.currentTimeMillis()/1000L).toInt())
+                    holder.imageCheck.setBackgroundResource(R.drawable.ic_baseline_check_box_outline_blank_25_gray)
+            }
         }
 
         holder.taskComplete.setOnClickListener {
@@ -63,15 +66,6 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                     getItem(position).deadline,
                     getItem(position).createdAt,
                     getItem(position).updatedAt,
-                ),
-                TaskData(
-                    getItem(position).id,
-                    getItem(position).text,
-                    getItem(position).importance,
-                    getItem(position).done,
-                    getItem(position).deadline,
-                    getItem(position).createdAt,
-                    getItem(position).updatedAt,
                 )
             )
 
@@ -80,9 +74,10 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
         holder.infoButton.setOnClickListener {
             val reWriteFragment = ReWriteTaskFragment(myViewModel)
             val bundle = Bundle()
-            bundle.putString(STRING, getItem(position).text)
-
-//            getItem(position).deadline.let{ it1 -> bundle.putLong(LONG, it1) }
+            bundle.putString(TEXT, getItem(position).text)
+            bundle.putString(ID, getItem(position).id)
+            bundle.putInt(CREATEDAT, getItem(position).createdAt)
+            bundle.putInt(DEADLINE, getItem(position).deadline)
 
             reWriteFragment.arguments = bundle
 

@@ -64,30 +64,46 @@ class MyViewModel @Inject constructor(
         }
     }
 
-    fun deleteTask(mTask: EntityTaskData, mTaskData: TaskData){
+    fun deleteTask(mTask: EntityTaskData){
         try {
-
         viewModelScope.launch(Dispatchers.IO) {
-
             mRepository.deleteTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
 
         }
-
-            viewModelScope.launch(Dispatchers.IO) {
-//                apiRep.deleteTaskApi(mTask.id)
-            }
-            Log.d("TASKID", mTaskData.id)
         }
         catch (e: Exception)
         {  }
     }
 
-    fun updateTasks(mTask: EntityTaskData){
+    fun updateTasks(mTask: EntityTaskData, mTaskData: ApiEntityTaskData){
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.updateTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
+
+            if (mApiRoomRepository.findInsert(mTaskData).isEmpty()
+                && mApiRoomRepository.findUpdate(mTaskData).isEmpty())
+                    mApiRoomRepository.insertToApiRoom(mTaskData)
+            else if (mApiRoomRepository.findInsert(mTaskData).isNotEmpty()){
+                mApiRoomRepository.deleteId(mTaskData)
+                mApiRoomRepository.insertToApiRoom(
+                    ApiEntityTaskData(
+                        mTaskData.id,
+                        mTaskData.text,
+                        mTaskData.importance,
+                        mTaskData.done,
+                        mTaskData.deadline,
+                        mTaskData.createdAt,
+                        mTaskData.updatedAt,
+                        "insert"
+                    )
+                )
+            }
+            else if (mApiRoomRepository.findUpdate(mTaskData).isNotEmpty()){
+                mApiRoomRepository.deleteId(mTaskData)
+                mApiRoomRepository.insertToApiRoom(mTaskData)
+            }
 
         }
     }
@@ -97,6 +113,5 @@ class MyViewModel @Inject constructor(
             time.postValue(mTime)
         }
     }
-
 
 }
