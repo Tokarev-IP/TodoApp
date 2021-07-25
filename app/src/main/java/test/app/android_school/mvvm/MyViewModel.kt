@@ -56,14 +56,6 @@ class MyViewModel @Inject constructor(
         }
     }
 
-    fun makeIsDone(mTask: EntityTaskData){
-        viewModelScope.launch(Dispatchers.IO) {
-            mRepository.makeDone(mTask)
-            mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
-
-        }
-    }
-
     fun deleteTask(mTask: EntityTaskData){
         try {
         viewModelScope.launch(Dispatchers.IO) {
@@ -105,6 +97,13 @@ class MyViewModel @Inject constructor(
                 mApiRoomRepository.insertToApiRoom(mTaskData)
             }
 
+        }
+    }
+
+    fun addToApiRoomTask(mTaskData: ApiEntityTaskData){
+        viewModelScope.launch(Dispatchers.IO) {
+
+            mApiRoomRepository.insertToApiRoom(mTaskData)
         }
     }
 

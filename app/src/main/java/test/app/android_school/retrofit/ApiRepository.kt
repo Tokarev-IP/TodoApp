@@ -1,10 +1,9 @@
 package test.app.android_school.retrofit
 
 import test.app.android_school.recycler.TaskData
+import javax.inject.Inject
 
-class ApiRepository() {
-
-    private val api = Api.apiClient
+class ApiRepository @Inject constructor(private val api: ApiInterface) {
 
     private val apiKey: String = "Bearer 39828f964ef548b9beb47356380ff358"
 
@@ -12,15 +11,15 @@ class ApiRepository() {
         api.getTasksFromApi(apiKey)
     }
 
-    fun postTaskApi(mTask: TaskData){
+    suspend fun postTaskApi(mTask: TaskData){
         api.postTaskToApi(apiKey, mTask)
     }
 
-    fun putTaskApi(id: String, mTask: TaskData){
+    suspend fun putTaskApi(id: String, mTask: TaskData){
         api.putTaskToApi(id, apiKey, mTask)
     }
 
-    fun deleteTaskApi (id: String){
+    suspend fun deleteTaskApi (id: String){
         api.deleteTaskFromApi(id, apiKey)
     }
 }

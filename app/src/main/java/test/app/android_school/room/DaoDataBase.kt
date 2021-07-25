@@ -35,7 +35,7 @@ interface DaoDataBase {
     suspend fun insertTaskApiRoom(mTask: ApiEntityTaskData)
 
     @Query ("DELETE from action_api_task_DataBase WHERE id = :mId")
-    fun deleteFromApiRoomWhereId(mId: String)
+    suspend fun deleteFromApiRoomWhereId(mId: String)
 
     @Delete
     suspend fun deleteTaskApiRoom(mTask: ApiEntityTaskData)

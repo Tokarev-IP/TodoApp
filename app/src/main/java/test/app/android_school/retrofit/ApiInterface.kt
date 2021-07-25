@@ -11,20 +11,20 @@ interface ApiInterface {
     ): List<TaskData>
 
     @POST("tasks")
-    fun postTaskToApi(
+    suspend fun postTaskToApi(
         @Header ("Authorization") auth: String,
         @Body task: TaskData
     ): TaskData
 
     @PUT ("tasks/{task_id}")
-    fun putTaskToApi(
+    suspend fun putTaskToApi(
         @Path ("task_id") taskId: String,
         @Header ("Authorization") auth: String,
         @Body task: TaskData
     ): TaskData
 
     @DELETE("tasks/{task_id}")
-    fun deleteTaskFromApi(
+    suspend fun deleteTaskFromApi(
         @Path ("task_id") taskId: String,
         @Header ("Authorization") auth: String,
     ): TaskData

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import test.app.android_school.R
 import test.app.android_school.fragments.ReWriteTaskFragment
 import test.app.android_school.mvvm.MyViewModel
+import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.EntityTaskData
 
 class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, private val myViewModel: MyViewModel) :
@@ -41,16 +42,26 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
         }
 
         holder.taskComplete.setOnClickListener {
-            myViewModel.makeIsDone(
-                EntityTaskData(
-                    getItem(position).id,
-                    getItem(position).text,
-                    getItem(position).importance,
-                    true,
-                    getItem(position).deadline,
-                    getItem(position).createdAt,
-                    getItem(position).updatedAt,
-                )
+            myViewModel.updateTasks(
+                    EntityTaskData(
+                            getItem(position).id,
+                            getItem(position).text,
+                            getItem(position).importance,
+                            true,
+                            getItem(position).deadline,
+                            getItem(position).createdAt,
+                            getItem(position).updatedAt,
+                    ),
+                    ApiEntityTaskData(
+                            getItem(position).id,
+                            getItem(position).text,
+                            getItem(position).importance,
+                            true,
+                            getItem(position).deadline,
+                            getItem(position).createdAt,
+                            getItem(position).updatedAt,
+                            "update"
+                    )
             )
 
         }
@@ -67,6 +78,18 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                     getItem(position).createdAt,
                     getItem(position).updatedAt,
                 )
+            )
+            myViewModel.addToApiRoomTask(
+                    ApiEntityTaskData(
+                            getItem(position).id,
+                            getItem(position).text,
+                            getItem(position).importance,
+                            getItem(position).done,
+                            getItem(position).deadline,
+                            getItem(position).createdAt,
+                            getItem(position).updatedAt,
+                            "delete"
+                    )
             )
 
         }

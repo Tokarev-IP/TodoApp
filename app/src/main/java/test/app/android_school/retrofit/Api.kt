@@ -1,17 +1,21 @@
 package test.app.android_school.retrofit
 
+import dagger.Module
+import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@Module
 object Api {
 
     private const val BASE_URL = "https://d5dps3h13rv6902lp5c8.apigw.yandexcloud.net"
 
-    val apiClient: ApiInterface by lazy {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        return@lazy retrofit.create(ApiInterface::class.java)
+    @Provides
+    fun getApiClient(): ApiInterface {
+        return Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(ApiInterface::class.java)
     }
 }

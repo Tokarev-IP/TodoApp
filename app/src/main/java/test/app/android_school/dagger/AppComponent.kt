@@ -6,11 +6,13 @@ import dagger.Component
 import test.app.android_school.fragments.AddTaskFragment
 import test.app.android_school.mvvm.MainActivity
 import test.app.android_school.fragments.RecyclerFragment
+import test.app.android_school.retrofit.Api
 import test.app.android_school.viewModel.ViewModelModule
 
 @Component (modules = [
     DaggerObjects::class,
     ViewModelModule::class,
+    Api::class,
 ])
 
 interface AppComponent {
@@ -23,4 +25,5 @@ interface AppComponent {
     fun inject(fragment: AddTaskFragment)
     fun inject(fragment: RecyclerFragment)
     fun inject(activity: MainActivity)
+    fun inject(application: MyApplication)
 }
