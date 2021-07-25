@@ -3,21 +3,13 @@ package test.app.android_school.background
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
-import androidx.work.Worker
 import androidx.work.WorkerParameters
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import test.app.android_school.mvvm.ApiRoomRepository
-//import test.app.android_school.mvvm.ApiRoomRepository
 import test.app.android_school.recycler.TaskData
 import test.app.android_school.retrofit.ApiRepository
 import java.lang.Exception
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class BackgroundApiWorker (
         appContext: Context,
