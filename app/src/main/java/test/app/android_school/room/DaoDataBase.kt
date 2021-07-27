@@ -14,6 +14,9 @@ interface DaoDataBase {
     @Query("SELECT COUNT(*) FROM task_DataBase WHERE done = '1' ")
     suspend fun getCountCompleteTasks(): Int
 
+    @Query ("SELECT * from task_DataBase WHERE id = :mId")
+    suspend fun findTask(mId: String): List<EntityTaskData>
+
     @Update
     suspend fun makeTaskIsDone(mTask: EntityTaskData)
 

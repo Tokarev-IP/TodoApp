@@ -7,8 +7,8 @@ class ApiRepository @Inject constructor(private val api: ApiInterface) {
 
     private val apiKey: String = "Bearer 39828f964ef548b9beb47356380ff358"
 
-    suspend fun getTasksApi() {
-        api.getTasksFromApi(apiKey)
+    suspend fun getTasksApi(): List<TaskData> {
+        return api.getTasksFromApi(apiKey)
     }
 
     suspend fun postTaskApi(mTask: TaskData){

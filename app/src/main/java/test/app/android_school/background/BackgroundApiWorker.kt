@@ -11,7 +11,7 @@ import test.app.android_school.recycler.TaskData
 import test.app.android_school.retrofit.ApiRepository
 import java.lang.Exception
 
-class BackgroundApiWorker (
+class BackgroundApiWorker(
         appContext: Context,
         workerParams: WorkerParameters,
         private val apiRoomRep: ApiRoomRepository,

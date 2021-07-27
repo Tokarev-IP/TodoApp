@@ -4,14 +4,13 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import test.app.android_school.mvvm.ApiRoomRepository
 import test.app.android_school.mvvm.MyRepository
 import test.app.android_school.retrofit.ApiRepository
 import javax.inject.Inject
 
-class MyWorkFactory @Inject constructor(
-        private val apiRoomRep: ApiRoomRepository,
+class StartWorkFactory @Inject constructor(
         private val apiRep: ApiRepository,
+        private val myRep: MyRepository,
 ): WorkerFactory() {
 
     override fun createWorker(
@@ -19,6 +18,6 @@ class MyWorkFactory @Inject constructor(
             workerClassName: String,
             workerParameters: WorkerParameters
     ): ListenableWorker {
-        return BackgroundApiWorker(appContext, workerParameters, apiRoomRep, apiRep)
+        return StartBackgroundApiWorker(appContext, workerParameters, apiRep, myRep)
     }
 }

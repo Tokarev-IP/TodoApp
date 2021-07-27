@@ -24,10 +24,6 @@ class MyRepository @Inject constructor(db: DataBaseTask) {
         return dbDao.getCountCompleteTasks()
     }
 
-    suspend fun makeDone(mTask: EntityTaskData){
-        dbDao.makeTaskIsDone(mTask)
-    }
-
     suspend fun deleteTask(mTask: EntityTaskData){
         dbDao.deleteTask(mTask)
     }
@@ -35,4 +31,7 @@ class MyRepository @Inject constructor(db: DataBaseTask) {
     suspend fun updateTask(mTask: EntityTaskData) {
         dbDao.updateTask(mTask)
     }
+
+    suspend fun findTask(mId: String) =
+            dbDao.findTask(mId)
 }

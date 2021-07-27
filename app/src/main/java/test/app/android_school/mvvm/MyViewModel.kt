@@ -1,12 +1,11 @@
 package test.app.android_school.mvvm
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import test.app.android_school.recycler.TaskData
+import test.app.android_school.retrofit.ApiRepository
 import test.app.android_school.room.ApiEntityTaskData
 
 import test.app.android_school.room.EntityTaskData
@@ -15,6 +14,7 @@ import javax.inject.Inject
 class MyViewModel @Inject constructor(
         private val mRepository: MyRepository,
         private val mApiRoomRepository: ApiRoomRepository,
+        private val apiRep: ApiRepository
 ) : ViewModel() {
 
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
@@ -30,6 +30,7 @@ class MyViewModel @Inject constructor(
         mTaskApiData: ApiEntityTaskData,
     ){
         viewModelScope.launch(Dispatchers.IO) {
+
             mRepository.insertTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
             mApiRoomRepository.insertToApiRoom(mTaskApiData)
