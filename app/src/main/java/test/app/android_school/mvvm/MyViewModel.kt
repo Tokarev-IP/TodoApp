@@ -5,21 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import test.app.android_school.retrofit.ApiRepository
 import test.app.android_school.room.ApiEntityTaskData
-
 import test.app.android_school.room.EntityTaskData
 import javax.inject.Inject
 
 class MyViewModel @Inject constructor(
         private val mRepository: MyRepository,
         private val mApiRoomRepository: ApiRoomRepository,
-        private val apiRep: ApiRepository
 ) : ViewModel() {
 
     private var mutListOfTasks: MutableLiveData<List<EntityTaskData>> =  MutableLiveData()
     private var doneTaskCount: MutableLiveData<Int> = MutableLiveData()
     private var time: MutableLiveData<Int> = MutableLiveData()
+
+    var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getListOfTasks() = mutListOfTasks
     fun getDoneTaskCount() = doneTaskCount
@@ -29,19 +28,22 @@ class MyViewModel @Inject constructor(
         mTask: EntityTaskData,
         mTaskApiData: ApiEntityTaskData,
     ){
+        dataLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
 
             mRepository.insertTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
             mApiRoomRepository.insertToApiRoom(mTaskApiData)
         }
+        dataLoading.postValue(false)
     }
 
     fun getAllTaskData(){
+        dataLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             mutListOfTasks.postValue(mRepository.getAllTasksRep())
-
         }
+        dataLoading.postValue(false)
     }
 
     fun getNotDoneTaskData(){
@@ -58,15 +60,12 @@ class MyViewModel @Inject constructor(
     }
 
     fun deleteTask(mTask: EntityTaskData){
-        try {
+        dataLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             mRepository.deleteTask(mTask)
             mutListOfTasks.postValue(mRepository.getNotDoneAllTasks())
-
         }
-        }
-        catch (e: Exception)
-        {  }
+        dataLoading.postValue(false)
     }
 
     fun updateTasks(mTask: EntityTaskData, mTaskData: ApiEntityTaskData){
@@ -102,10 +101,11 @@ class MyViewModel @Inject constructor(
     }
 
     fun addToApiRoomTask(mTaskData: ApiEntityTaskData){
+        dataLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
-
             mApiRoomRepository.insertToApiRoom(mTaskData)
         }
+        dataLoading.postValue(false)
     }
 
     fun setTime(mTime: Int){

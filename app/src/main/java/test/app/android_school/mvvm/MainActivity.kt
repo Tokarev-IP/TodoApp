@@ -1,18 +1,19 @@
 package test.app.android_school.mvvm
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.PersistableBundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.work.*
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import test.app.android_school.R
 import test.app.android_school.background.BackgroundApiWorker
 import test.app.android_school.background.StartBackgroundApiWorker
 import test.app.android_school.dagger.MyApplication
 import test.app.android_school.fragments.RecyclerFragment
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     private val TIME = "time"
     var mTime by Delegates.notNull<Int>()
-    private val mBuilder = Data.Builder()
 
     @Inject
     lateinit var myViewModelFactory: ViewModelProvider.Factory
@@ -60,36 +60,27 @@ class MainActivity : AppCompatActivity() {
                 .addTag("START")
                 .build()
 
-        val workRequestFinish = OneTimeWorkRequest.Builder(BackgroundApiWorker::class.java)
+        WorkManager
+                .getInstance(this)
+                .enqueue(workRequestStart)
+
+    }
+
+    @SuppressLint("EnqueueWork")
+    override fun onStop() {
+        super.onStop()
+
+        val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+        val workRequest = OneTimeWorkRequest.Builder(BackgroundApiWorker::class.java)
                 .setConstraints(constraints)
                 .build()
 
-
         WorkManager
-                .getInstance(this)
-                .beginWith(workRequestStart)
-                .then(workRequestFinish)
-                .enqueue()
-
-
-//            .enqueue(listOf(workRequestStart, workRequestFinish))
-    }
-
-    override fun onStop() {
-        super.onStop()
-//
-//        val constraints = Constraints.Builder()
-//                .setRequiredNetworkType(NetworkType.CONNECTED)
-//                .build()
-//
-//        val workRequest: WorkRequest = OneTimeWorkRequest.Builder(BackgroundApiWorker::class.java)
-//                .setConstraints(constraints)
-//                .addTag("FINISH")
-//                .build()
-//
-//        WorkManager
-//            .getInstance(this)
-//            .enqueue(workRequest)
+            .getInstance(this)
+            .enqueue(workRequest)
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

@@ -20,8 +20,8 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
 
     lateinit var priority: String
     lateinit var id: String
-    var deadLine by Delegates.notNull<Int>()
-    var time: Int = (System.currentTimeMillis()/1000L).toInt()
+    private var deadLine : Int = (System.currentTimeMillis()/1000L).toInt()
+    private val time: Int = (System.currentTimeMillis()/1000L).toInt()
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "SimpleDateFormat")
     override fun onCreateView(
@@ -38,11 +38,12 @@ class AddTaskFragment(private val myViewModel: MyViewModel) : Fragment() {
         val mEditText: EditText = mInflater.findViewById(R.id.task_edit_text)
         val switch_calendare: Switch = mInflater.findViewById(R.id.switch_view)
 
+        dataText.text = SimpleDateFormat("dd-MM-yyyy").format(deadLine*1000L)
+
         myViewModel.getTime().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             dataText.text = SimpleDateFormat("dd-MM-yyyy").format(it*1000L)
             deadLine  = it
         })
-
 
         switch_calendare.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
