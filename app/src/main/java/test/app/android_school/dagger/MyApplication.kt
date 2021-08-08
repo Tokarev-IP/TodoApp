@@ -1,6 +1,7 @@
 package test.app.android_school.dagger
 
 import android.app.Application
+import android.util.Log
 import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import test.app.android_school.background.MyWorkFactory
@@ -40,5 +41,4 @@ class MyApplication: Application(), Configuration.Provider {
                 .setWorkerFactory(myWorkerFactory)
                 .build()
     }
-
 }

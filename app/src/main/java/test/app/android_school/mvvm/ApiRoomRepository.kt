@@ -1,9 +1,11 @@
 package test.app.android_school.mvvm
 
+import test.app.android_school.dagger.ApplicationScope
 import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.DataBaseTask
 import javax.inject.Inject
 
+@ApplicationScope
 class ApiRoomRepository @Inject constructor(
         db: DataBaseTask)
 {

@@ -9,12 +9,12 @@ import test.app.android_school.fragments.RecyclerFragment
 import test.app.android_school.retrofit.Api
 import test.app.android_school.viewModel.ViewModelModule
 
+@ApplicationScope
 @Component (modules = [
     DaggerObjects::class,
     ViewModelModule::class,
     Api::class,
 ])
-
 interface AppComponent {
 
     @Component.Factory

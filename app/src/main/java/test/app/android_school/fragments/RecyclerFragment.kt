@@ -2,14 +2,13 @@ package test.app.android_school.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,7 +34,7 @@ class RecyclerFragment(private val myViewModel: MyViewModel) : Fragment() {
         mRecyclerView.adapter = mAdapter
 
         val floatingButton: FloatingActionButton = mInflater.findViewById(R.id.floating_button)
-        val visible_button: ImageButton = mInflater.findViewById(R.id.complete_tasks_visible)
+        val visibleButton: ImageButton = mInflater.findViewById(R.id.complete_tasks_visible)
         val completeTextViw: TextView = mInflater.findViewById(R.id.complete_text_view)
         val topRecycler: TextView = mInflater.findViewById(R.id.my_task_text)
 
@@ -44,22 +43,22 @@ class RecyclerFragment(private val myViewModel: MyViewModel) : Fragment() {
         }
 
         if (visible) {
-            visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_off_25)
+            visibleButton.setBackgroundResource(R.drawable.ic_baseline_visibility_off_25)
             myViewModel.getAllTaskData()
         } else {
-            visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_25)
+            visibleButton.setBackgroundResource(R.drawable.ic_baseline_visibility_25)
             myViewModel.getNotDoneTaskData()
         }
 
-        visible_button.setOnClickListener {
-            if (visible) {
-                visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_25)
+        visibleButton.setOnClickListener {
+            visible = if (visible) {
+                visibleButton.setBackgroundResource(R.drawable.ic_baseline_visibility_25)
                 myViewModel.getNotDoneTaskData()
-                visible = false
+                false
             } else {
-                visible_button.setBackgroundResource(R.drawable.ic_baseline_visibility_off_25)
+                visibleButton.setBackgroundResource(R.drawable.ic_baseline_visibility_off_25)
                 myViewModel.getAllTaskData()
-                visible = true
+                true
             }
         }
 
@@ -71,12 +70,12 @@ class RecyclerFragment(private val myViewModel: MyViewModel) : Fragment() {
                 .commit()
         }
 
-        myViewModel.getListOfTasks().observe(viewLifecycleOwner, Observer {
+        myViewModel.getListOfTasks().observe(viewLifecycleOwner, {
             mAdapter.submitList(it)
             myViewModel.getDoneTaskData()
         })
 
-        myViewModel.getDoneTaskCount().observe(viewLifecycleOwner, Observer {
+        myViewModel.getDoneTaskCount().observe(viewLifecycleOwner, {
             completeTextViw.text = "Выполнено - " + it
         })
 

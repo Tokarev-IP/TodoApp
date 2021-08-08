@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import test.app.android_school.dagger.ApplicationScope
 import test.app.android_school.mvvm.MyRepository
 import test.app.android_school.retrofit.ApiRepository
 import javax.inject.Inject
 
+@ApplicationScope
 class StartWorkFactory @Inject constructor(
         private val apiRep: ApiRepository,
         private val myRep: MyRepository,

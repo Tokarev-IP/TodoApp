@@ -63,33 +63,30 @@ class MyRecyclerAdapter(private val appCompatActivity: AppCompatActivity, privat
                             "update"
                     )
             )
-
         }
 
         holder.taskDelete.setOnClickListener {
             Log.d("ADAPTER_POSITION", position.toString())
-            myViewModel.deleteTask(
+            myViewModel.updateTasks(
                 EntityTaskData(
                     getItem(position).id,
                     getItem(position).text,
                     getItem(position).importance,
-                    getItem(position).done,
+                    true,
                     getItem(position).deadline,
                     getItem(position).createdAt,
                     getItem(position).updatedAt,
+                ),
+                ApiEntityTaskData(
+                    getItem(position).id,
+                    getItem(position).text,
+                    getItem(position).importance,
+                    true,
+                    getItem(position).deadline,
+                    getItem(position).createdAt,
+                    getItem(position).updatedAt,
+                    "update"
                 )
-            )
-            myViewModel.addToApiRoomTask(
-                    ApiEntityTaskData(
-                            getItem(position).id,
-                            getItem(position).text,
-                            getItem(position).importance,
-                            getItem(position).done,
-                            getItem(position).deadline,
-                            getItem(position).createdAt,
-                            getItem(position).updatedAt,
-                            "delete"
-                    )
             )
 
         }

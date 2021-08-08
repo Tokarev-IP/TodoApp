@@ -9,6 +9,7 @@ import test.app.android_school.room.DataBaseTask
 @Module
 object DaggerObjects {
 
+    @ApplicationScope
     @Provides
     fun getDatabase(context: Context): DataBaseTask {
         return Room.databaseBuilder(

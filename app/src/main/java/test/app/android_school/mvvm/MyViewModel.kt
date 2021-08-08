@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import test.app.android_school.dagger.ApplicationScope
 import test.app.android_school.room.ApiEntityTaskData
 import test.app.android_school.room.EntityTaskData
 import javax.inject.Inject
 
+@ApplicationScope
 class MyViewModel @Inject constructor(
         private val mRepository: MyRepository,
         private val mApiRoomRepository: ApiRoomRepository,
