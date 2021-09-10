@@ -1,5 +1,6 @@
 package test.app.android_school.retrofit
 
+import test.app.android_school.BuildConfig
 import test.app.android_school.dagger.ApplicationScope
 import test.app.android_school.recycler.TaskData
 import javax.inject.Inject
@@ -7,7 +8,7 @@ import javax.inject.Inject
 @ApplicationScope
 class ApiRepository @Inject constructor(private val api: ApiInterface) {
 
-    private val apiKey: String = "Bearer 39828f964ef548b9beb47356380ff358"
+    private val apiKey: String = BuildConfig.API_KEY
 
     suspend fun getTasksApi(): List<TaskData> {
         return api.getTasksFromApi(apiKey)

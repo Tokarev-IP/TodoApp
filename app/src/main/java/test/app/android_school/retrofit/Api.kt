@@ -4,13 +4,14 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import test.app.android_school.BuildConfig
 import test.app.android_school.dagger.ApplicationScope
 import javax.inject.Scope
 
 @Module
 object Api {
 
-    private const val BASE_URL = "https://d5dps3h13rv6902lp5c8.apigw.yandexcloud.net"
+    private const val BASE_URL = BuildConfig.API_URL
 
     @ApplicationScope
     @Provides
