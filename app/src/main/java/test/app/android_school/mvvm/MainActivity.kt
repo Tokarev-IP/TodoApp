@@ -41,10 +41,11 @@ class MainActivity : AppCompatActivity() {
 
         val myViewModel: MyViewModel = ViewModelProvider(this, myViewModelFactory).get(MyViewModel::class.java)
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_frame, RecyclerFragment(myViewModel))
-            .commit()
+        if (savedInstanceState == null)
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_frame, RecyclerFragment(myViewModel))
+                .commit()
 
     }
 
